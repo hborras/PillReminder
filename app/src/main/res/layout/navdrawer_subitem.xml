@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+    <View android:layout_height="1dp" android:layout_width="fill_parent" android:background="#000000"/>
+    <LinearLayout
+        android:id="@+id/linear_navmenusubitem_icon"
+        android:layout_width="36dp"
+        android:layout_height="36dp">
+        <ImageView
+            android:id="@+id/navmenusubitem_icon"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/navmenusubitem_label"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:paddingLeft="4dp"
+        android:layout_toRightOf="@id/linear_navmenusubitem_icon"
+        android:gravity="center_vertical"
+        android:textSize="16sp"
+        android:textStyle="italic"
+        android:text="Esto es una prueba"/>
+    <View android:layout_height="1dp" android:layout_width="fill_parent" android:background="#000000"/>
+
+</RelativeLayout>
