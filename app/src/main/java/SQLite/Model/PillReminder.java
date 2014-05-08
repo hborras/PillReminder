@@ -5,6 +5,10 @@ package SQLite.Model;
  */
 public class PillReminder {
 
+    public final static int STATE_ACTIVE  = 1;
+    public final static int STATE_ARCHIVE = 2;
+    public final static int STATE_DELETED = 3;
+
     private int mId;
     private int mPillId;
     private int mMealId;
@@ -13,6 +17,16 @@ public class PillReminder {
     private String mDateStart;
     private String mDateFinish;
     private String mCreatedAt;
+
+    public int getmStatus() {
+        return mStatus;
+    }
+
+    public void setmStatus(int mStatus) {
+        this.mStatus = mStatus;
+    }
+
+    private int mStatus;
 
     public PillReminder() {
     }
