@@ -7,21 +7,22 @@ public class Pill {
 
     private int mId;
     private String mName;
-    private String mColor;
+    private int mImage;
     private String mCreatedAt;
 
     public Pill() {
     }
 
-    public Pill(int mId, String mName) {
-        this.mId = mId;
+    public Pill( String mName, int mImage) {
         this.mName = mName;
+        this.mImage = mImage;
+
     }
 
-    public Pill(int mId, String mName, String mColor) {
+    public Pill(int mId, String mName, int mImage) {
         this.mId = mId;
         this.mName = mName;
-        this.mColor = mColor;
+        this.mImage = mImage;
     }
 
     public int getmId() {
@@ -40,12 +41,12 @@ public class Pill {
         this.mName = mName;
     }
 
-    public String getmColor() {
-        return mColor;
+    public int getmImage() {
+        return mImage;
     }
 
-    public void setmColor(String mColor) {
-        this.mColor = mColor;
+    public void setmImage(int mImage) {
+        this.mImage = mImage;
     }
 
     public String getmCreatedAt() {

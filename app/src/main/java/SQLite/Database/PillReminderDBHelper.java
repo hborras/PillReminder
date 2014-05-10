@@ -41,7 +41,7 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
 
     // PILLS Table - column names
     private static final String KEY_NAME =                          "name";
-    private static final String KEY_COLOR =                         "color";
+    private static final String KEY_IMAGE =                         "image";
 
     // PILL_REMINDER Table - column names
     private static final String KEY_PILL_REMINDER_PILL_ID =         "pill_id";
@@ -57,7 +57,7 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_PILL = "CREATE TABLE "
             + TABLE_PILL + "(" + KEY_ID + " INTEGER PRIMARY KEY,"
             + KEY_NAME   + " TEXT,"
-            + KEY_COLOR + " TEXT,"
+            + KEY_IMAGE + " INTEGER,"
             + KEY_CREATED_AT + " DATETIME" + ")";
 
     // Day table create statement
@@ -114,7 +114,7 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, pill.getmName());
-        values.put(KEY_COLOR, pill.getmColor());
+        values.put(KEY_IMAGE, pill.getmImage());
         values.put(KEY_CREATED_AT, getDateTime());
 
         // insert row
@@ -140,7 +140,7 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
             c.moveToFirst();
             pill.setmId(c.getInt(c.getColumnIndex(KEY_ID)));
             pill.setmName((c.getString(c.getColumnIndex(KEY_NAME))));
-            pill.setmColor((c.getString(c.getColumnIndex(KEY_COLOR))));
+            pill.setmImage((c.getInt(c.getColumnIndex(KEY_IMAGE))));
             pill.setmCreatedAt(c.getString(c.getColumnIndex(KEY_CREATED_AT)));
         }
         return pill;
@@ -162,7 +162,7 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
                 Pill pill = new Pill();
                 pill.setmId(c.getInt((c.getColumnIndex(KEY_ID))));
                 pill.setmName((c.getString(c.getColumnIndex(KEY_NAME))));
-                pill.setmColor((c.getString(c.getColumnIndex(KEY_COLOR))));
+                pill.setmImage((c.getInt(c.getColumnIndex(KEY_IMAGE))));
                 pill.setmCreatedAt(c.getString(c.getColumnIndex(KEY_CREATED_AT)));
 
                 // adding to pill list
@@ -181,7 +181,7 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, pill.getmName());
-        values.put(KEY_COLOR, pill.getmColor());
+        values.put(KEY_IMAGE, pill.getmImage());
 
         // updating row
         return db.update(TABLE_PILL, values, KEY_ID + " = ?",
@@ -198,7 +198,7 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
         // check if pill_reminders under this pills should also be deleted
         if (should_delete_all_pill_reminders) {
             // get all pill_reminders under this tag
-            List<PillReminder> allPillPillReminders = getAllPillRemindersByPill(pill_id);
+            List<PillReminder> allPillPillReminders = getAllPillRemindersByPill(pill_id,PillReminder.STATE_NO_STATUS);
 
             // delete all pill_reminders
             for (PillReminder pillReminder : allPillPillReminders) {
@@ -421,6 +421,50 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
         // updating row
         return db.update(TABLE_PILL_REMINDER, values, KEY_ID + " = ?",
                 new String[] { String.valueOf(pillReminder.getmId()) });
+    }
+
+    public List<PillReminder> getAllPillRemindersByPill(long pill_id,long status_id){
+        List<PillReminder> pillReminders = new ArrayList<PillReminder>();
+        String selectQuery = "SELECT  * FROM " + TABLE_PILL_REMINDER
+                            + " WHERE " + KEY_ID + "=" + pill_id;
+        if (status_id != PillReminder.STATE_NO_STATUS){
+            selectQuery = selectQuery + " AND " + KEY_PILL_REMINDER_STATUS + "="
+                                        + status_id;
+        }
+        Log.e(LOG, selectQuery);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                PillReminder pillReminder = new PillReminder();
+                pillReminder.setmId(c.getInt((c.getColumnIndex(KEY_ID))));
+                pillReminder.setmPillId(c.getInt(c.getColumnIndex(KEY_PILL_REMINDER_DAY_ID)));
+                pillReminder.setmDayId(c.getInt(c.getColumnIndex(KEY_PILL_REMINDER_DAY_ID)));
+                pillReminder.setmMealId(c.getInt(c.getColumnIndex(KEY_PILL_REMINDER_MEAL_ID)));
+                pillReminder.setmStatus(c.getInt(c.getColumnIndex(KEY_PILL_REMINDER_STATUS)));
+                pillReminder.setmEveryHours(c.getInt(c.getColumnIndex(KEY_PILL_REMINDER_EVERY_HOURS)));
+                pillReminder.setmCreatedAt(c.getString(c.getColumnIndex(KEY_CREATED_AT)));
+                pillReminder.setmDateStart(c.getString(c.getColumnIndex(KEY_DATE_START)));
+                pillReminder.setmDateFinish(c.getString(c.getColumnIndex(KEY_DATE_FINISH)));
+
+                // adding to pillReminders list
+                pillReminders.add(pillReminder);
+            } while (c.moveToNext());
+        }
+
+        return pillReminders;
+    }
+
+    /*
+     * Delete a PillReminder
+     */
+
+    public void deletePillReminder(long pillReminder_id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_PILL_REMINDER, KEY_ID + " = ?",
+                new String[] { String.valueOf(pillReminder_id) });
     }
 
     // closing database

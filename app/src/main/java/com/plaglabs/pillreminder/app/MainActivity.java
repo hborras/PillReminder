@@ -7,7 +7,11 @@ public class MainActivity extends AbstractNavDrawerActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if ( savedInstanceState == null ) {
-            getFragmentManager().beginTransaction().replace(R.id.content_frame, new FragmentOne()).commit();
+            getFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.content_frame, new PillsFragment())
+                    .addToBackStack("Pills")
+                    .commit();
         }
     }
 
@@ -15,13 +19,13 @@ public class MainActivity extends AbstractNavDrawerActivity {
     protected NavDrawerActivityConfiguration getNavDrawerConfiguration() {
 
         NavDrawerItem[] menu = new NavDrawerItem[] {
-                NavMenuSection.create( 100, "Demos"),
-                NavMenuItem.create(101,getResources().getString(R.string.navdrawer_item_activepills), R.drawable.action_search, false, this),
-                NavMenuItem.create(102,getResources().getString(R.string.navdrawer_item_archived),R.drawable.action_search, true, this),
-                NavMenuItem.create(103,getResources().getString(R.string.navdrawer_item_deleted),R.drawable.action_search, false, this),
-                NavMenuSection.create(200, "General"),
-                NavMenuItem.create(201, getResources().getString(R.string.navdrawer_item_feedback), R.drawable.action_search, false, this),
-                NavMenuItem.create(202, getResources().getString(R.string.navdrawer_item_help),R.drawable.action_search , false, this)};
+                NavMenuItem.create(101,getResources().getString(R.string.navdrawer_item_activepills), R.drawable.action_search, true, this),
+                NavMenuItem.create(102,getResources().getString(R.string.navdrawer_item_pills), R.drawable.action_search, true, this),
+                NavMenuItem.create(103,getResources().getString(R.string.navdrawer_item_archived),R.drawable.action_search, true, this),
+                NavMenuItem.create(104,getResources().getString(R.string.navdrawer_item_deleted),R.drawable.action_search, true, this),
+                NavMenuSection.create(200, getResources().getString(R.string.others)),
+                NavMenuItem.create(201, getResources().getString(R.string.navdrawer_item_feedback), R.drawable.action_search, true, this),
+                NavMenuItem.create(202, getResources().getString(R.string.navdrawer_item_help),R.drawable.action_search , true, this)};
 
         NavDrawerActivityConfiguration navDrawerActivityConfiguration = new NavDrawerActivityConfiguration();
         navDrawerActivityConfiguration.setMainLayout(R.layout.activity_main);
@@ -38,13 +42,14 @@ public class MainActivity extends AbstractNavDrawerActivity {
 
     @Override
     protected void onNavItemSelected(int id) {
-        /*switch (id) {
-            case 101:
-                getFragmentManager().beginTransaction().replace(R.id.content_frame, new FragmentThree()).commit();
-                break;
+        switch (id) {
             case 102:
-                getFragmentManager().beginTransaction().replace(R.id.content_frame, new FragmentThree()).commit();
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.content_frame, new PillsFragment())
+                        .addToBackStack("pills")
+                        .commit();
                 break;
-        }*/
+        }
     }
 }

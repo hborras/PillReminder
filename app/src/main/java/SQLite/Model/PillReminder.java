@@ -5,6 +5,7 @@ package SQLite.Model;
  */
 public class PillReminder {
 
+    public final static int STATE_NO_STATUS  = 0;
     public final static int STATE_ACTIVE  = 1;
     public final static int STATE_ARCHIVE = 2;
     public final static int STATE_DELETED = 3;
