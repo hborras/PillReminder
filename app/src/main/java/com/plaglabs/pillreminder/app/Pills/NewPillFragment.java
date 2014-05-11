@@ -1,8 +1,8 @@
 package com.plaglabs.pillreminder.app.Pills;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
+
 import android.os.Bundle;
+import android.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -27,7 +27,7 @@ import SQLite.Model.Pill;
 /**
  * Created by plagueis on 10/05/14.
  */
-public class NewPillFragment extends Fragment{
+public class NewPillFragment extends Fragment {
 
     PillReminderDBHelper db;
     ViewPager viewPager;

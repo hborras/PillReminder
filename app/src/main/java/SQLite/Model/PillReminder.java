@@ -19,6 +19,15 @@ public class PillReminder {
     private String mDateFinish;
     private String mCreatedAt;
     private int mReminderId;
+    private String mhourStart;
+
+    public String getMhourStart() {
+        return mhourStart;
+    }
+
+    public void setMhourStart(String mhourStart) {
+        this.mhourStart = mhourStart;
+    }
 
     public int getmReminderId() {
         return mReminderId;
@@ -105,11 +114,12 @@ public class PillReminder {
         this.mCreatedAt = mCreatedAt;
     }
 
-    public PillReminder(int mId,int mReminderId, int mPillId, int mEveryHours, String mDateStart, String mDateFinish) {
+    public PillReminder(int mId,int mReminderId, int mPillId, int mEveryHours,String mhourStart, String mDateStart, String mDateFinish) {
 
         this.mId = mId;
         this.mPillId = mPillId;
         this.mEveryHours = mEveryHours;
+        this.mhourStart = mhourStart;
         this.mDateStart = mDateStart;
         this.mDateFinish = mDateFinish;
         this.mReminderId = mReminderId;

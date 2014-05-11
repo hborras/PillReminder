@@ -7,6 +7,17 @@
         xmlns:card="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <TextView
+            android:layout_margin="10dp"
+            android:id="@+id/title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Select the Pill"
+            android:textSize="22sp"
+            android:gravity="center"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
         <it.gmariotti.cardslib.library.view.CardListView
             android:layout_width="match_parent"

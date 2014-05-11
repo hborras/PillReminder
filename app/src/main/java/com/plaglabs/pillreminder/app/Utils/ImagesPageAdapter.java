@@ -39,11 +39,12 @@ public class ImagesPageAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         ImageView imageView = new ImageView(context);
-        int padding = 2;
+        int padding = 15;
         imageView.setPadding(padding, padding, padding, padding);
         imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         imageView.setImageResource(mImages.get(position).getrID());
         ((ViewPager) container).addView(imageView, 0);
         return imageView;
     }
+
 }

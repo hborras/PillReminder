@@ -2,6 +2,7 @@ package com.plaglabs.pillreminder.app;
 
 import android.os.Bundle;
 
+import com.plaglabs.pillreminder.app.PillReminder.PillSelectFragment;
 import com.plaglabs.pillreminder.app.Pills.PillsFragment;
 
 public class MainActivity extends AbstractNavDrawerActivity {
@@ -11,8 +12,8 @@ public class MainActivity extends AbstractNavDrawerActivity {
         if ( savedInstanceState == null ) {
             getFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.content_frame, new PillsFragment())
-                    .addToBackStack("Pills")
+                    .replace(R.id.content_frame, new PillSelectFragment())
+                    .addToBackStack("Pills1")
                     .commit();
         }
     }
@@ -46,11 +47,18 @@ public class MainActivity extends AbstractNavDrawerActivity {
     @Override
     protected void onNavItemSelected(int id) {
         switch (id) {
+            case 101:
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.content_frame, new PillSelectFragment())
+                        .addToBackStack("pills2")
+                        .commit();
+                break;
             case 103:
                 getFragmentManager()
                         .beginTransaction()
                         .replace(R.id.content_frame, new PillsFragment())
-                        .addToBackStack("pills")
+                        .addToBackStack("pills3")
                         .commit();
                 break;
         }

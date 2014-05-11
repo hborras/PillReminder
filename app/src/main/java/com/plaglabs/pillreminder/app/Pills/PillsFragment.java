@@ -1,7 +1,7 @@
 package com.plaglabs.pillreminder.app.Pills;
 
-import android.app.Fragment;
 import android.os.Bundle;
+import android.app.Fragment;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -130,7 +130,6 @@ public class PillsFragment extends Fragment {
                 .replace(R.id.content_frame, new NewPillFragment())
                 .addToBackStack("newPill")
                 .commit();
-
         return super.onOptionsItemSelected(item);
     }
 
