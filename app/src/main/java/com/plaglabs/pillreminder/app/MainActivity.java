@@ -2,6 +2,8 @@ package com.plaglabs.pillreminder.app;
 
 import android.os.Bundle;
 
+import com.plaglabs.pillreminder.app.Pills.PillsFragment;
+
 public class MainActivity extends AbstractNavDrawerActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -19,13 +21,14 @@ public class MainActivity extends AbstractNavDrawerActivity {
     protected NavDrawerActivityConfiguration getNavDrawerConfiguration() {
 
         NavDrawerItem[] menu = new NavDrawerItem[] {
-                NavMenuItem.create(101,getResources().getString(R.string.navdrawer_item_activepills), R.drawable.action_search, true, this),
-                NavMenuItem.create(102,getResources().getString(R.string.navdrawer_item_pills), R.drawable.action_search, true, this),
-                NavMenuItem.create(103,getResources().getString(R.string.navdrawer_item_archived),R.drawable.action_search, true, this),
-                NavMenuItem.create(104,getResources().getString(R.string.navdrawer_item_deleted),R.drawable.action_search, true, this),
+                NavMenuItem.create(101,getResources().getString(R.string.navdrawer_item_nextpills), R.drawable.action_search, true, this),
+                NavMenuItem.create(102,getResources().getString(R.string.navdrawer_item_activepills), R.drawable.action_search, true, this),
+                NavMenuItem.create(103,getResources().getString(R.string.navdrawer_item_pills), R.drawable.pill_red, true, this),
+                NavMenuItem.create(104,getResources().getString(R.string.navdrawer_item_archived),R.drawable.action_search, true, this),
+                NavMenuItem.create(105,getResources().getString(R.string.navdrawer_item_deleted),R.drawable.action_search, true, this),
                 NavMenuSection.create(200, getResources().getString(R.string.others)),
                 NavMenuItem.create(201, getResources().getString(R.string.navdrawer_item_feedback), R.drawable.action_search, true, this),
-                NavMenuItem.create(202, getResources().getString(R.string.navdrawer_item_help),R.drawable.action_search , true, this)};
+                NavMenuItem.create(202, getResources().getString(R.string.navdrawer_item_help),R.drawable.ic_action_help , true, this)};
 
         NavDrawerActivityConfiguration navDrawerActivityConfiguration = new NavDrawerActivityConfiguration();
         navDrawerActivityConfiguration.setMainLayout(R.layout.activity_main);
@@ -43,7 +46,7 @@ public class MainActivity extends AbstractNavDrawerActivity {
     @Override
     protected void onNavItemSelected(int id) {
         switch (id) {
-            case 102:
+            case 103:
                 getFragmentManager()
                         .beginTransaction()
                         .replace(R.id.content_frame, new PillsFragment())

@@ -35,4 +35,12 @@
     <string name="txt_new_pill_name">Write the name for the Pill</string>
     <string name="txt_new_pill_picture">Select the Picture for the Pill</string>
     <string name="menu_action_addPill">Add Pill</string>
+    <string name="new_pill_error_text">You can\'t create a new pill without no name</string>
+    <string name="navdrawer_item_nextpills">Next Pills</string>
+    <string name="menu_action_deletePill">Delete Pill</string>
+    <string name="dialog_remove_pill">Do you want to remove this pill?</string>
+    <string name="dialog_remove_pill_title">Remove Pill</string>
+    <string name="dialog_remove_pill_message">Do you want to remove this pill? If you select YES, all pill reminders related to this pill will be removed too.</string>
+    <string name="positive_button">Yes</string>
+    <string name="negative_button">No</string>
 </resources>

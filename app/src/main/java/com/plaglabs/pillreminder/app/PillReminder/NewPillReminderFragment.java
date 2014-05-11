@@ -1,4 +1,4 @@
-package com.plaglabs.pillreminder.app;
+package com.plaglabs.pillreminder.app.PillReminder;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -10,8 +10,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.plaglabs.pillreminder.app.Utils.Image;
+import com.plaglabs.pillreminder.app.Utils.ImagesPageAdapter;
+import com.plaglabs.pillreminder.app.Pills.PillsFragment;
+import com.plaglabs.pillreminder.app.R;
+
 import java.util.ArrayList;
-import java.util.List;
 
 import SQLite.Database.PillReminderDBHelper;
 import SQLite.Model.Pill;
@@ -19,12 +23,20 @@ import SQLite.Model.Pill;
 /**
  * Created by plagueis on 10/05/14.
  */
-public class NewPillFragment extends Fragment{
+public class NewPillReminderFragment extends Fragment{
 
     PillReminderDBHelper db;
     ViewPager viewPager;
     ArrayList<Image> mImages;
     EditText etName;
+    Pill pill;
+
+    public NewPillReminderFragment() {
+    }
+
+    public NewPillReminderFragment(Pill pill) {
+        this.pill = pill;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -103,13 +115,47 @@ public class NewPillFragment extends Fragment{
             public void onClick(View v) {
                 int pag = viewPager.getCurrentItem();
                 Image image = mImages.get(pag);
+                String text = etName.getText().toString();
+                if (text.equalsIgnoreCase("")) {
+                    Toast.makeText(getActivity(),getResources().getString(R.string.new_pill_error_text),Toast.LENGTH_SHORT).show();
+                } else {
+                    if (pill != null){
+                        pill.setmName(text);
+                        pill.setmImage(image.getrID());
+                        updatePill();
+                    } else {
+                        addPill(text, image.getrID());
+                    }
+                    returnBack();
+                }
+            }
+        });
 
+        btnCancel = (Button) view.findViewById(R.id.btnCancel);
+        btnCancel.setOnClickListener(new View.OnClickListener() {
 
-                addPill(etName.getText().toString(),image.getrID());
+            @Override
+            public void onClick(View v) {
+                returnBack();
             }
         });
 
         etName = (EditText) view.findViewById(R.id.etName);
+
+        if (pill!=null){
+            etName.setText(pill.getmName());
+
+            boolean stop = false;
+            int i = 0;
+            while(stop == false && i < mImages.size()){
+                Image mImage = mImages.get(i);
+                if (mImage.getrID() == pill.getmImage()){
+                    stop = true;
+                    viewPager.setCurrentItem(i,true);
+                }
+                i++;
+            }
+        }
 
         return view;
     }
@@ -120,9 +166,23 @@ public class NewPillFragment extends Fragment{
         Pill pill = new Pill(name,rId);
 
         long pill_id = db.createPill(pill);
-        Toast.makeText(getActivity(),"Created Pill with ID: " + pill_id,Toast.LENGTH_SHORT).show();
+
         db.closeDB();
     }
 
+    private void updatePill(){
+        db = new PillReminderDBHelper(getActivity());
 
+        db.updatePill(pill);
+
+        db.closeDB();
+    }
+
+    private void returnBack(){
+        getActivity().getFragmentManager()
+                .beginTransaction()
+                .replace(R.id.content_frame, new PillsFragment())
+                .addToBackStack("newPill")
+                .commit();
+    }
 }

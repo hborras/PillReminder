@@ -1,4 +1,4 @@
-package com.plaglabs.pillreminder.app;
+package com.plaglabs.pillreminder.app.Utils;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by plagueis on 10/05/14.

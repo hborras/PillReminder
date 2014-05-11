@@ -1,4 +1,4 @@
-package com.plaglabs.pillreminder.app;
+package com.plaglabs.pillreminder.app.Utils;
 
 import java.util.List;
 

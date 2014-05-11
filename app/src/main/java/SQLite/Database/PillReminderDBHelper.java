@@ -44,6 +44,7 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
     private static final String KEY_IMAGE =                         "image";
 
     // PILL_REMINDER Table - column names
+    private static final String KEY_REMINDER_ID =                   "reminder_id";
     private static final String KEY_PILL_REMINDER_PILL_ID =         "pill_id";
     private static final String KEY_DATE_START =                    "date_start";
     private static final String KEY_DATE_FINISH =                   "date_finish";
@@ -72,6 +73,7 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_TABLE_PILL_REMINDER = "CREATE TABLE "
             + TABLE_PILL_REMINDER + "(" + KEY_ID + " INTEGER PRIMARY KEY,"
+            + KEY_REMINDER_ID + " INTEGER,"
             + KEY_PILL_REMINDER_PILL_ID   + " INTEGER,"
             + KEY_PILL_REMINDER_DAY_ID + " INTEGER,"
             + KEY_PILL_REMINDER_MEAL_ID + " INTEGER,"
@@ -386,6 +388,7 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
+        values.put(KEY_REMINDER_ID, pillReminder.getmReminderId());
         values.put(KEY_PILL_REMINDER_PILL_ID, pillReminder.getmPillId());
         values.put(KEY_PILL_REMINDER_DAY_ID, pillReminder.getmDayId());
         values.put(KEY_PILL_REMINDER_MEAL_ID, pillReminder.getmMealId());
@@ -409,6 +412,7 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
+        values.put(KEY_REMINDER_ID, pillReminder.getmReminderId());
         values.put(KEY_PILL_REMINDER_PILL_ID, pillReminder.getmPillId());
         values.put(KEY_PILL_REMINDER_DAY_ID, pillReminder.getmDayId());
         values.put(KEY_PILL_REMINDER_MEAL_ID, pillReminder.getmMealId());
@@ -426,7 +430,7 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
     public List<PillReminder> getAllPillRemindersByPill(long pill_id,long status_id){
         List<PillReminder> pillReminders = new ArrayList<PillReminder>();
         String selectQuery = "SELECT  * FROM " + TABLE_PILL_REMINDER
-                            + " WHERE " + KEY_ID + "=" + pill_id;
+                            + " WHERE " + KEY_PILL_REMINDER_PILL_ID + "=" + pill_id;
         if (status_id != PillReminder.STATE_NO_STATUS){
             selectQuery = selectQuery + " AND " + KEY_PILL_REMINDER_STATUS + "="
                                         + status_id;
@@ -439,6 +443,7 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
         if (c.moveToFirst()) {
             do {
                 PillReminder pillReminder = new PillReminder();
+                pillReminder.setmReminderId(c.getInt(c.getColumnIndex(KEY_REMINDER_ID)));
                 pillReminder.setmId(c.getInt((c.getColumnIndex(KEY_ID))));
                 pillReminder.setmPillId(c.getInt(c.getColumnIndex(KEY_PILL_REMINDER_DAY_ID)));
                 pillReminder.setmDayId(c.getInt(c.getColumnIndex(KEY_PILL_REMINDER_DAY_ID)));

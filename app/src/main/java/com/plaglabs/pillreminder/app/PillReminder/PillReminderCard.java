@@ -1,10 +1,11 @@
-package com.plaglabs.pillreminder.app;
+package com.plaglabs.pillreminder.app.PillReminder;
 
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.plaglabs.pillreminder.app.R;
 
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardThumbnail;
@@ -12,7 +13,7 @@ import it.gmariotti.cardslib.library.internal.CardThumbnail;
 /**
  * Created by plagueis on 10/05/14.
  */
-public class CardItem extends Card {
+public class PillReminderCard extends Card {
     protected TextView mTitle;
     protected TextView mSecondaryTitle;
     protected int resourceIdThumbnail;
@@ -22,11 +23,11 @@ public class CardItem extends Card {
     protected String title;
     protected String secondaryTitle;
 
-    public CardItem(Context context) {
+    public PillReminderCard(Context context) {
         this(context, R.layout.card);
     }
 
-    public CardItem(Context context, int innerLayout) {
+    public PillReminderCard(Context context, int innerLayout) {
         super(context, innerLayout);
     }
 
@@ -43,20 +44,8 @@ public class CardItem extends Card {
 
         addCardThumbnail(cardThumbnail);
 
-        setSwipeable(true);
-        setOnSwipeListener(new OnSwipeListener() {
-            @Override
-            public void onSwipe(Card card) {
-                //Toast.makeText(getContext(), "Removed card=" + card_pill_id, Toast.LENGTH_SHORT).show();
-            }
-        });
+        setSwipeable(false);
 
-        setOnUndoSwipeListListener(new OnUndoSwipeListListener() {
-            @Override
-            public void onUndoSwipe(Card card) {
-                Toast.makeText(getContext(), "Removed card=" + card_pill_id, Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     @Override

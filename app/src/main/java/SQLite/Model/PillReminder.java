@@ -18,6 +18,15 @@ public class PillReminder {
     private String mDateStart;
     private String mDateFinish;
     private String mCreatedAt;
+    private int mReminderId;
+
+    public int getmReminderId() {
+        return mReminderId;
+    }
+
+    public void setmReminderId(int mReminderId) {
+        this.mReminderId = mReminderId;
+    }
 
     public int getmStatus() {
         return mStatus;
@@ -96,16 +105,17 @@ public class PillReminder {
         this.mCreatedAt = mCreatedAt;
     }
 
-    public PillReminder(int mId, int mPillId, int mEveryHours, String mDateStart, String mDateFinish) {
+    public PillReminder(int mId,int mReminderId, int mPillId, int mEveryHours, String mDateStart, String mDateFinish) {
 
         this.mId = mId;
         this.mPillId = mPillId;
         this.mEveryHours = mEveryHours;
         this.mDateStart = mDateStart;
         this.mDateFinish = mDateFinish;
+        this.mReminderId = mReminderId;
     }
 
-    public PillReminder(int mId, int mPillId, int mMealId, int mDayId, String mDateStart, String mDateFinish) {
+    public PillReminder(int mId,int mReminderId, int mPillId, int mMealId, int mDayId, String mDateStart, String mDateFinish) {
 
         this.mId = mId;
         this.mPillId = mPillId;
@@ -113,5 +123,6 @@ public class PillReminder {
         this.mDayId = mDayId;
         this.mDateStart = mDateStart;
         this.mDateFinish = mDateFinish;
+        this.mReminderId = mReminderId;
     }
 }

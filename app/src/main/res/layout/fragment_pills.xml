@@ -12,6 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/pillsList"
+            android:choiceMode="singleChoice"
             card:list_card_layout_resourceID="@layout/list_card_thumbnail_layout"/>
 
 
