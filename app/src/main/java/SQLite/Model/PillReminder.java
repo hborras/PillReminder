@@ -21,6 +21,16 @@ public class PillReminder {
     private int mReminderId;
     private String mhourStart;
 
+    public String getmDescription() {
+        return mDescription;
+    }
+
+    public void setmDescription(String mDescription) {
+        this.mDescription = mDescription;
+    }
+
+    private String mDescription;
+
     public String getMhourStart() {
         return mhourStart;
     }
@@ -48,6 +58,11 @@ public class PillReminder {
     private int mStatus;
 
     public PillReminder() {
+        this.mDateStart = "";
+        this.mDateFinish = "";
+        this.mCreatedAt = "";
+        this.mhourStart = "";
+        this.mDescription = "";
     }
 
     public int getmId() {
@@ -114,7 +129,7 @@ public class PillReminder {
         this.mCreatedAt = mCreatedAt;
     }
 
-    public PillReminder(int mId,int mReminderId, int mPillId, int mEveryHours,String mhourStart, String mDateStart, String mDateFinish) {
+    public PillReminder(int mId,int mReminderId, int mPillId, int mEveryHours,String mhourStart,String mDescription, String mDateStart, String mDateFinish) {
 
         this.mId = mId;
         this.mPillId = mPillId;
@@ -123,9 +138,10 @@ public class PillReminder {
         this.mDateStart = mDateStart;
         this.mDateFinish = mDateFinish;
         this.mReminderId = mReminderId;
+        this.mDescription = mDescription;
     }
 
-    public PillReminder(int mId,int mReminderId, int mPillId, int mMealId, int mDayId, String mDateStart, String mDateFinish) {
+    public PillReminder(int mId,int mReminderId, int mPillId, int mMealId, int mDayId,String mDescription, String mDateStart, String mDateFinish) {
 
         this.mId = mId;
         this.mPillId = mPillId;
@@ -134,5 +150,6 @@ public class PillReminder {
         this.mDateStart = mDateStart;
         this.mDateFinish = mDateFinish;
         this.mReminderId = mReminderId;
+        this.mDescription = mDescription;
     }
 }

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -19,31 +20,57 @@ import com.plaglabs.pillreminder.app.R;
 import com.plaglabs.pillreminder.app.Utils.DialogConfirmation;
 import com.plaglabs.pillreminder.app.Utils.DialogDate;
 
+import SQLite.Model.PillReminder;
+
 /**
  * Created by plagueis on 11/05/14.
  */
 public class TypeSelectFragment extends Fragment {
     public final static int CODE_START = 1;
     public final static int CODE_FINISH = 2;
-    private int pill_id;
+    private PillReminder pillReminder;
     private boolean tvDateStartHasDate=false,tvDateFinishHasDate=false;
 
     Button btnNext,btnCancel;
-    public TextView tvDateStart,tvDateFinish;
+    TextView tvDateStart,tvDateFinish;
     RadioButton rbHours, rbDays;
+    EditText etDescription;
 
     public TypeSelectFragment() {
     }
 
-    public TypeSelectFragment(int pill_id) {
-        this.pill_id = pill_id;
+    public TypeSelectFragment(PillReminder pillReminder) {
+        this.pillReminder = pillReminder;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
 
+        if(!pillReminder.getmDescription().equalsIgnoreCase("")){
+            etDescription.setText(pillReminder.getmDescription());
+        }
+
+        if(!pillReminder.getmDateStart().equalsIgnoreCase("")){
+            SpannableString spanString = new SpannableString(pillReminder.getmDateStart());
+            spanString.setSpan(new UnderlineSpan(), 0, spanString.length(), 0);
+            tvDateStart.setText(spanString);
+            tvDateStartHasDate = true;
+        }
+
+        if(!pillReminder.getmDateFinish().equalsIgnoreCase("")){
+            SpannableString spanString2 = new SpannableString(pillReminder.getmDateFinish());
+            spanString2.setSpan(new UnderlineSpan(), 0, spanString2.length(), 0);
+            tvDateFinish.setText(spanString2);
+            tvDateFinishHasDate = true;
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_type_select, container,false);
+
+        etDescription = (EditText) view.findViewById(R.id.etDescription);
 
         rbHours = (RadioButton) view.findViewById(R.id.rbHours);
         rbHours.setChecked(true);
@@ -83,12 +110,15 @@ public class TypeSelectFragment extends Fragment {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkNext();
-
                 if (checkNext()){
+
+                    pillReminder.setmDescription(etDescription.getText().toString());
+                    pillReminder.setmDateStart(tvDateStart.getText().toString());
+                    pillReminder.setmDateFinish(tvDateFinish.getText().toString());
+
                     Fragment fragment;
                     if(rbHours.isChecked()){
-                        fragment = new EveryHoursFragment();
+                        fragment = new EveryHoursFragment(pillReminder);
                     } else {
                         fragment = new DaysMealsFragment();
                     }
@@ -123,7 +153,7 @@ public class TypeSelectFragment extends Fragment {
     private boolean checkNext() {
         boolean next = false;
 
-        if(tvDateStartHasDate && tvDateFinishHasDate){
+        if(tvDateStartHasDate && tvDateFinishHasDate && !etDescription.getText().toString().trim().equalsIgnoreCase("")){
             next = true;
         }
 

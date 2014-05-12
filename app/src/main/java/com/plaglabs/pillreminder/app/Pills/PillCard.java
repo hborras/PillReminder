@@ -1,8 +1,6 @@
 package com.plaglabs.pillreminder.app.Pills;
 
 import android.content.Context;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -26,7 +24,7 @@ public class PillCard extends Card {
     protected String secondaryTitle;
 
     public PillCard(Context context) {
-        this(context, R.layout.card);
+        this(context, R.layout.pill_card);
     }
 
     public PillCard(Context context, int innerLayout) {

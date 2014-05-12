@@ -52,6 +52,7 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
     private static final String KEY_PILL_REMINDER_MEAL_ID =         "meal_id";
     private static final String KEY_PILL_REMINDER_EVERY_HOURS =     "every_hours";
     private static final String KEY_PILL_REMINDER_STATUS =          "status";
+    private static final String KEY_PILL_REMINDER_DESCRIPTION =     "description";
 
     // Table Create Statements
     // Pill table create statement
@@ -81,7 +82,8 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
             + KEY_DATE_START + " DATETIME,"
             + KEY_DATE_FINISH + " DATETIME,"
             + KEY_CREATED_AT + " DATETIME,"
-            + KEY_PILL_REMINDER_STATUS + " INTEGER)";
+            + KEY_PILL_REMINDER_STATUS + " INTEGER,"
+            + KEY_PILL_REMINDER_DESCRIPTION + " TEXT)";
 
     public PillReminderDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -397,6 +399,7 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
         values.put(KEY_DATE_FINISH,pillReminder.getmDateFinish());
         values.put(KEY_CREATED_AT, getDateTime());
         values.put(KEY_PILL_REMINDER_STATUS,pillReminder.getmStatus());
+        values.put(KEY_PILL_REMINDER_DESCRIPTION,pillReminder.getmDescription());
 
         // insert row
         long pill_reminder_id = db.insert(TABLE_PILL_REMINDER, null, values);
@@ -421,6 +424,7 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
         values.put(KEY_DATE_FINISH,pillReminder.getmDateFinish());
         values.put(KEY_CREATED_AT, getDateTime());
         values.put(KEY_PILL_REMINDER_STATUS,pillReminder.getmStatus());
+        values.put(KEY_PILL_REMINDER_DESCRIPTION,pillReminder.getmDescription());
 
         // updating row
         return db.update(TABLE_PILL_REMINDER, values, KEY_ID + " = ?",
@@ -453,7 +457,7 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
                 pillReminder.setmCreatedAt(c.getString(c.getColumnIndex(KEY_CREATED_AT)));
                 pillReminder.setmDateStart(c.getString(c.getColumnIndex(KEY_DATE_START)));
                 pillReminder.setmDateFinish(c.getString(c.getColumnIndex(KEY_DATE_FINISH)));
-
+                pillReminder.setmDescription(c.getString(c.getColumnIndex(KEY_PILL_REMINDER_DESCRIPTION)));
                 // adding to pillReminders list
                 pillReminders.add(pillReminder);
             } while (c.moveToNext());

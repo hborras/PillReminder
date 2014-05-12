@@ -21,6 +21,7 @@ import java.util.List;
 
 import SQLite.Database.PillReminderDBHelper;
 import SQLite.Model.Pill;
+import SQLite.Model.PillReminder;
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
 import it.gmariotti.cardslib.library.view.CardListView;
@@ -55,19 +56,21 @@ public class PillSelectFragment extends Fragment {
     private void initCards() {
 
         ArrayList<Card> cards = new ArrayList<Card>(mPills.size());
-        for (final Pill pill : mPills){
+        for (Pill pill : mPills){
             PillCard card = new PillCard(getActivity());
             card.setResourceIdThumbnail(pill.getmImage());
             card.setTitle(pill.getmName());
             card.setCard_pill_id(pill.getmId());
             card.init();
-
+            final PillReminder pillReminder = new PillReminder();
+            pillReminder.setmPillId(pill.getmId());
+            pillReminder.setmStatus(PillReminder.STATE_ACTIVE);
             card.setOnClickListener(new Card.OnCardClickListener() {
                 @Override
                 public void onClick(Card card, View view) {
                     getFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.content_frame, new TypeSelectFragment(pill.getmId()))
+                            .replace(R.id.content_frame, new TypeSelectFragment(pillReminder))
                             .addToBackStack("Pills3")
                             .commit();
                 }

@@ -24,7 +24,7 @@ public class PillReminderCard extends Card {
     protected String secondaryTitle;
 
     public PillReminderCard(Context context) {
-        this(context, R.layout.card);
+        this(context, R.layout.pill_reminder_card);
     }
 
     public PillReminderCard(Context context, int innerLayout) {
