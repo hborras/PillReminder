@@ -3,9 +3,11 @@ package com.plaglabs.pillreminder.app.Utils;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+import com.plaglabs.pillreminder.app.PillReminder.PillsReminderFragment;
 import com.plaglabs.pillreminder.app.Pills.PillsFragment;
 import com.plaglabs.pillreminder.app.R;
 
@@ -18,6 +20,7 @@ import SQLite.Model.Pill;
 public class DialogConfirmation extends DialogFragment {
 
     public static final int DELETE_PILL = 1;
+    public static final int DELETE_PILL_REMINDER = 2;
 
     PillReminderDBHelper db;
 
@@ -44,16 +47,25 @@ public class DialogConfirmation extends DialogFragment {
                 .setPositiveButton(R.string.positive_button, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        Fragment fragment = null;
                         switch (code) {
                             case DELETE_PILL:
                                 db = new PillReminderDBHelper(getActivity());
                                     db.deletePill(id,true);
                                 db.closeDB();
+                                fragment = new PillsFragment();
                                 break;
+                            case DELETE_PILL_REMINDER:
+                                db = new PillReminderDBHelper(getActivity());
+                                db.deletePillReminder(id);
+                                db.closeDB();
+                                fragment = new PillsReminderFragment();
+                                break;
+
                         }
                         getActivity().getFragmentManager()
                                 .beginTransaction()
-                                .replace(R.id.content_frame, new PillsFragment())
+                                .replace(R.id.content_frame, fragment)
                                 .addToBackStack("newPill")
                                 .commit();
                     }

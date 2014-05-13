@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.plaglabs.pillreminder.app.MainActivity;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,6 +19,7 @@ import SQLite.Model.Day;
 import SQLite.Model.Meal;
 import SQLite.Model.Pill;
 import SQLite.Model.PillReminder;
+import SQLite.Model.Pill_PillReminder;
 
 public class PillReminderDBHelper extends SQLiteOpenHelper {
 
@@ -31,7 +34,7 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
 
     // Table Names
     private static final String TABLE_PILL =                        "pill";
-    private static final String TABLE_PILL_REMINDER =                "pillreminder";
+    private static final String TABLE_PILL_REMINDER =               "pillreminder";
     private static final String TABLE_DAY =                         "day";
     private static final String TABLE_MEAL =                        "meal";
 
@@ -53,6 +56,7 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
     private static final String KEY_PILL_REMINDER_EVERY_HOURS =     "every_hours";
     private static final String KEY_PILL_REMINDER_STATUS =          "status";
     private static final String KEY_PILL_REMINDER_DESCRIPTION =     "description";
+    private static final String KEY_PILL_REMINDER_HOURSTART=        "hour_start";
 
     // Table Create Statements
     // Pill table create statement
@@ -83,7 +87,8 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
             + KEY_DATE_FINISH + " DATETIME,"
             + KEY_CREATED_AT + " DATETIME,"
             + KEY_PILL_REMINDER_STATUS + " INTEGER,"
-            + KEY_PILL_REMINDER_DESCRIPTION + " TEXT)";
+            + KEY_PILL_REMINDER_DESCRIPTION + " TEXT,"
+            + KEY_PILL_REMINDER_HOURSTART + " TEXT)";
 
     public PillReminderDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -400,6 +405,7 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
         values.put(KEY_CREATED_AT, getDateTime());
         values.put(KEY_PILL_REMINDER_STATUS,pillReminder.getmStatus());
         values.put(KEY_PILL_REMINDER_DESCRIPTION,pillReminder.getmDescription());
+        values.put(KEY_PILL_REMINDER_HOURSTART,pillReminder.getMhourStart());
 
         // insert row
         long pill_reminder_id = db.insert(TABLE_PILL_REMINDER, null, values);
@@ -425,10 +431,20 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
         values.put(KEY_CREATED_AT, getDateTime());
         values.put(KEY_PILL_REMINDER_STATUS,pillReminder.getmStatus());
         values.put(KEY_PILL_REMINDER_DESCRIPTION,pillReminder.getmDescription());
+        values.put(KEY_PILL_REMINDER_HOURSTART,pillReminder.getMhourStart());
 
         // updating row
         return db.update(TABLE_PILL_REMINDER, values, KEY_ID + " = ?",
                 new String[] { String.valueOf(pillReminder.getmId()) });
+    }
+
+    public int updatePillReminderState(int reminderId, int status){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_PILL_REMINDER_STATUS,status);
+        return db.update(TABLE_PILL_REMINDER, values, KEY_REMINDER_ID + " = ?",
+                new String[] { String.valueOf(reminderId) });
     }
 
     public List<PillReminder> getAllPillRemindersByPill(long pill_id,long status_id){
@@ -449,7 +465,7 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
                 PillReminder pillReminder = new PillReminder();
                 pillReminder.setmReminderId(c.getInt(c.getColumnIndex(KEY_REMINDER_ID)));
                 pillReminder.setmId(c.getInt((c.getColumnIndex(KEY_ID))));
-                pillReminder.setmPillId(c.getInt(c.getColumnIndex(KEY_PILL_REMINDER_DAY_ID)));
+                pillReminder.setmPillId(c.getInt(c.getColumnIndex(KEY_PILL_REMINDER_PILL_ID)));
                 pillReminder.setmDayId(c.getInt(c.getColumnIndex(KEY_PILL_REMINDER_DAY_ID)));
                 pillReminder.setmMealId(c.getInt(c.getColumnIndex(KEY_PILL_REMINDER_MEAL_ID)));
                 pillReminder.setmStatus(c.getInt(c.getColumnIndex(KEY_PILL_REMINDER_STATUS)));
@@ -458,6 +474,7 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
                 pillReminder.setmDateStart(c.getString(c.getColumnIndex(KEY_DATE_START)));
                 pillReminder.setmDateFinish(c.getString(c.getColumnIndex(KEY_DATE_FINISH)));
                 pillReminder.setmDescription(c.getString(c.getColumnIndex(KEY_PILL_REMINDER_DESCRIPTION)));
+                pillReminder.setMhourStart((c.getString(c.getColumnIndex(KEY_PILL_REMINDER_HOURSTART))));
                 // adding to pillReminders list
                 pillReminders.add(pillReminder);
             } while (c.moveToNext());
@@ -466,13 +483,85 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
         return pillReminders;
     }
 
+    public List<Pill_PillReminder> getAllPillRemindersWithPill(long status_id){
+        List<Pill_PillReminder> pillPillReminders = new ArrayList<Pill_PillReminder>();
+        String selectQuery = "SELECT"
+                + " " + TABLE_PILL +  "." + KEY_ID  + " as " + TABLE_PILL + KEY_ID
+                + ", " + TABLE_PILL +  "." + KEY_NAME  + " as " + TABLE_PILL + KEY_NAME
+                + ", " + TABLE_PILL +  "." + KEY_IMAGE  + " as " + TABLE_PILL + KEY_IMAGE
+                + ", " + TABLE_PILL +  "." + KEY_CREATED_AT  + " as " + TABLE_PILL + KEY_CREATED_AT
+                + ", " + TABLE_PILL_REMINDER +  "." + KEY_PILL_REMINDER_EVERY_HOURS  + " as " + TABLE_PILL_REMINDER + KEY_PILL_REMINDER_EVERY_HOURS
+                + ", " + TABLE_PILL_REMINDER +  "." + KEY_DATE_START  + " as " + TABLE_PILL_REMINDER + KEY_DATE_START
+                + ", " + TABLE_PILL_REMINDER +  "." + KEY_DATE_FINISH  + " as " + TABLE_PILL_REMINDER + KEY_DATE_FINISH
+                + ", " + TABLE_PILL_REMINDER +  "." + KEY_PILL_REMINDER_DESCRIPTION  + " as " + TABLE_PILL_REMINDER + KEY_PILL_REMINDER_DESCRIPTION
+                + ", " + TABLE_PILL_REMINDER +  "." + KEY_REMINDER_ID  + " as " + TABLE_PILL_REMINDER + KEY_REMINDER_ID
+                + ", " + TABLE_PILL_REMINDER +  "." + KEY_PILL_REMINDER_STATUS  + " as " + TABLE_PILL_REMINDER + KEY_PILL_REMINDER_STATUS
+                + ", " + TABLE_PILL_REMINDER +  "." + KEY_PILL_REMINDER_HOURSTART  + " as " + TABLE_PILL_REMINDER + KEY_PILL_REMINDER_HOURSTART
+                + ", " + TABLE_PILL_REMINDER +  "." + KEY_PILL_REMINDER_STATUS  + " as " + TABLE_PILL_REMINDER + KEY_PILL_REMINDER_STATUS
+                + " FROM " + TABLE_PILL_REMINDER + " LEFT JOIN " + TABLE_PILL
+                + " ON "+ TABLE_PILL + "." + KEY_ID + " = " + TABLE_PILL_REMINDER + "." + KEY_PILL_REMINDER_PILL_ID
+                + " WHERE "+ TABLE_PILL_REMINDER+ "." + KEY_PILL_REMINDER_STATUS + "=" + status_id;
+        Log.e(LOG, selectQuery);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        if (c.moveToFirst()) {
+            do {
+                Pill_PillReminder pillPillReminder = new Pill_PillReminder();
+                Pill pill = new Pill();
+                pill.setmId(c.getInt((c.getColumnIndex(TABLE_PILL + KEY_ID))));
+                pill.setmName((c.getString(c.getColumnIndex(TABLE_PILL + KEY_NAME))));
+                pill.setmImage((c.getInt(c.getColumnIndex(TABLE_PILL + KEY_IMAGE))));
+                pill.setmCreatedAt((c.getString(c.getColumnIndex(TABLE_PILL + KEY_CREATED_AT))));
+                pillPillReminder.setPill(pill);
+
+
+                PillReminder pillReminder = new PillReminder();
+                pillReminder.setmReminderId(c.getInt(c.getColumnIndex(TABLE_PILL_REMINDER + KEY_REMINDER_ID)));
+                pillReminder.setmStatus(c.getInt(c.getColumnIndex(TABLE_PILL_REMINDER + KEY_PILL_REMINDER_STATUS)));
+                pillReminder.setmEveryHours(c.getInt(c.getColumnIndex(TABLE_PILL_REMINDER + KEY_PILL_REMINDER_EVERY_HOURS)));
+                pillReminder.setmEveryHours(c.getInt(c.getColumnIndex(TABLE_PILL_REMINDER + KEY_PILL_REMINDER_STATUS)));
+                pillReminder.setmDateStart(c.getString(c.getColumnIndex(TABLE_PILL_REMINDER + KEY_DATE_START)));
+                pillReminder.setmDateFinish(c.getString(c.getColumnIndex(TABLE_PILL_REMINDER + KEY_DATE_FINISH)));
+                pillReminder.setmDescription(c.getString(c.getColumnIndex(TABLE_PILL_REMINDER + KEY_PILL_REMINDER_DESCRIPTION)));
+                pillReminder.setMhourStart((c.getString(c.getColumnIndex(TABLE_PILL_REMINDER + KEY_PILL_REMINDER_HOURSTART))));
+                pillPillReminder.setPillReminder(pillReminder);
+
+                if(MainActivity.DEBUG>0){
+                    pill.LogPill();
+                    pillReminder.LogPillReminder();
+                }
+
+                pillPillReminders.add(pillPillReminder);
+            } while (c.moveToNext());
+        }
+        return pillPillReminders;
+    }
+
+    public int getNextReminderId(){
+        int reminderId = 0;
+        String selectQuery = "SELECT max(" + KEY_REMINDER_ID + ") as maxReminderId"
+                             + " FROM " + TABLE_PILL_REMINDER;
+        Log.e(LOG, selectQuery);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        if (c.moveToFirst()) {
+            do {
+                reminderId =c.getInt(c.getColumnIndex("maxReminderId"));
+            } while (c.moveToNext());
+        }
+
+        return reminderId + 1;
+    }
+
     /*
      * Delete a PillReminder
      */
 
     public void deletePillReminder(long pillReminder_id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_PILL_REMINDER, KEY_ID + " = ?",
+        db.delete(TABLE_PILL_REMINDER, KEY_REMINDER_ID + " = ?",
                 new String[] { String.valueOf(pillReminder_id) });
     }
 
@@ -492,5 +581,7 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
         Date date = new Date();
         return dateFormat.format(date);
     }
+
+
 }
 

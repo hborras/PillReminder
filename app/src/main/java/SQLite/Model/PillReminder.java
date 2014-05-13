@@ -1,10 +1,12 @@
 package SQLite.Model;
 
+import android.util.Log;
+
 /**
  * Created by plagueis on 7/05/14.
  */
 public class PillReminder {
-
+    private static final String LOG =                               "PillReminderModel";
     public final static int STATE_NO_STATUS  = 0;
     public final static int STATE_ACTIVE  = 1;
     public final static int STATE_ARCHIVE = 2;
@@ -20,6 +22,7 @@ public class PillReminder {
     private String mCreatedAt;
     private int mReminderId;
     private String mhourStart;
+    private String mDescription;
 
     public String getmDescription() {
         return mDescription;
@@ -29,7 +32,7 @@ public class PillReminder {
         this.mDescription = mDescription;
     }
 
-    private String mDescription;
+
 
     public String getMhourStart() {
         return mhourStart;
@@ -151,5 +154,17 @@ public class PillReminder {
         this.mDateFinish = mDateFinish;
         this.mReminderId = mReminderId;
         this.mDescription = mDescription;
+    }
+
+    public void LogPillReminder(){
+        Log.e(LOG, "Id: " + this.mId);
+        Log.e(LOG,"Name: "       + this.mPillId);
+        Log.e(LOG,"Image: "      + this.mMealId);
+        Log.e(LOG,"Created At: " + this.mDayId);
+        Log.e(LOG,"Created At: " + this.mDateStart);
+        Log.e(LOG,"Created At: " + this.mDateFinish);
+        Log.e(LOG,"Created At: " + this.mReminderId);
+        Log.e(LOG,"Created At: " + this.mDescription);
+        Log.e(LOG,"Created At: " + this.mStatus);
     }
 }

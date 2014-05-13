@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.plaglabs.pillreminder.app.R;
 import com.plaglabs.pillreminder.app.Utils.DialogDate;
@@ -84,15 +86,19 @@ public class EveryHoursFragment extends Fragment {
                     pillReminder.setMhourStart(tvHourStart.getText().toString());
                     // TODO Look for next Reminder ID
                     db = new PillReminderDBHelper(getActivity());
-
+                    int newReminderId = db.getNextReminderId();
+                    Log.e("Test", String.valueOf(newReminderId));
+                    pillReminder.setmReminderId(newReminderId);
                     db.createPillReminder(pillReminder);
 
                     db.closeDB();
                     getFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.content_frame,new PillSelectFragment())
+                            .replace(R.id.content_frame,new PillsReminderFragment(PillReminder.STATE_ACTIVE))
                             .addToBackStack("new")
                             .commit();
+                } else {
+                    Toast.makeText(getActivity(),"You must select the frequency of your pill and the start hour",Toast.LENGTH_SHORT).show();
                 }
             }
         });

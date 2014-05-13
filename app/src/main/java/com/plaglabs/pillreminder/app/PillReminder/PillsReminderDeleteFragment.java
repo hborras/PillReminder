@@ -10,8 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.plaglabs.pillreminder.app.Pills.NewPillFragment;
-import com.plaglabs.pillreminder.app.Pills.PillCard;
 import com.plaglabs.pillreminder.app.R;
 import com.plaglabs.pillreminder.app.Utils.DialogConfirmation;
 
@@ -19,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import SQLite.Database.PillReminderDBHelper;
-import SQLite.Model.Pill;
 import SQLite.Model.PillReminder;
 import SQLite.Model.Pill_PillReminder;
 import it.gmariotti.cardslib.library.internal.Card;
@@ -31,7 +28,7 @@ import it.gmariotti.cardslib.library.view.listener.UndoBarController;
 /**
  * Created by plagueis on 10/05/14.
  */
-public class PillsReminderFragment extends Fragment {
+public class PillsReminderDeleteFragment extends Fragment {
 
     List<Pill_PillReminder> mPills;
     PillReminderDBHelper db;
@@ -40,22 +37,14 @@ public class PillsReminderFragment extends Fragment {
     private UndoBarController mUndoBarController;
     int position = -1;
     ActionMode mActionMode;
-    private int status;
-
-    public PillsReminderFragment() {
-    }
-
-    public PillsReminderFragment(int status) {
-        this.status = status;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         db = new PillReminderDBHelper(getActivity());
-        mPills = db.getAllPillRemindersWithPill(status);
-        //List<Pill_PillReminder> mPills2 = db.getAllPillRemindersByPill(1, PillReminder.STATE_ACTIVE);
+        mPills = db.getAllPillRemindersWithPill(PillReminder.STATE_DELETED);
+        //mPills = db.getAllPillRemindersByPill(1, PillReminder.STATE_ACTIVE);
     }
 
     @Override
@@ -85,20 +74,20 @@ public class PillsReminderFragment extends Fragment {
             card.setTitle(pillPillReminder.getPillReminder().getmDescription());
             card.init();
 
-            card.setOnClickListener(new Card.OnCardClickListener() {
+           /* card.setOnClickListener(new Card.OnCardClickListener() {
                 @Override
                 public void onClick(Card card, View view) {
                     if(mActionMode!=null){
                         mActionMode.finish();
                     } else {
-                        /*getActivity().getFragmentManager()
+                        getActivity().getFragmentManager()
                                 .beginTransaction()
                                 .replace(R.id.content_frame, new NewPillFragment(pillReminder))
                                 .addToBackStack("newPill")
-                                .commit();*/
+                                .commit();
                     }
                 }
-            });
+            });*/
 
             card.setOnLongClickListener(new Card.OnLongCardClickListener(){
 
@@ -165,15 +154,7 @@ public class PillsReminderFragment extends Fragment {
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             // Inflate a menu resource providing context menu items
             MenuInflater inflater = mode.getMenuInflater();
-            switch (status){
-                case PillReminder.STATE_ACTIVE:
-                    inflater.inflate(R.menu.pills_reminder_menu_view_archive_delete, menu);
-                    break;
-                case PillReminder.STATE_ARCHIVE:
-                    inflater.inflate(R.menu.pills_reminder_menu_view_restore_delete, menu);
-                    break;
-            }
-
+            inflater.inflate(R.menu.pills_menu_delete, menu);
             return true;
         }
 

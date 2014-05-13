@@ -1,9 +1,13 @@
 package SQLite.Model;
 
+import android.util.Log;
+
 /**
  * Created by plagueis on 7/05/14.
  */
 public class Pill {
+
+    private static final String LOG =                               "PillModel";
 
     private int mId;
     private String mName;
@@ -55,5 +59,12 @@ public class Pill {
 
     public void setmCreatedAt(String mCreatedAt) {
         this.mCreatedAt = mCreatedAt;
+    }
+
+    public void LogPill(){
+        Log.e(LOG,"Id: "         + this.mId);
+        Log.e(LOG,"Name: "       + this.mName);
+        Log.e(LOG,"Image: "      + this.mImage);
+        Log.e(LOG,"Created At: " + this.mCreatedAt);
     }
 }

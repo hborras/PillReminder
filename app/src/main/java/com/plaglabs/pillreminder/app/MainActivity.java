@@ -1,19 +1,26 @@
 package com.plaglabs.pillreminder.app;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.plaglabs.pillreminder.app.PillReminder.PillSelectFragment;
+import com.plaglabs.pillreminder.app.PillReminder.PillsReminderArchiveFragment;
+import com.plaglabs.pillreminder.app.PillReminder.PillsReminderDeleteFragment;
 import com.plaglabs.pillreminder.app.PillReminder.PillsReminderFragment;
 import com.plaglabs.pillreminder.app.Pills.PillsFragment;
 
+import SQLite.Model.PillReminder;
+
 public class MainActivity extends AbstractNavDrawerActivity {
+    public static final int DEBUG = 0;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if ( savedInstanceState == null ) {
             getFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.content_frame, new PillsReminderFragment())
+                    .replace(R.id.content_frame, new PillsReminderFragment(PillReminder.STATE_ACTIVE))
                     .addToBackStack("Pills1")
                     .commit();
         }
@@ -58,7 +65,7 @@ public class MainActivity extends AbstractNavDrawerActivity {
             case 102:
                 getFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.content_frame, new PillsReminderFragment())
+                        .replace(R.id.content_frame, new PillsReminderFragment(PillReminder.STATE_ACTIVE))
                         .addToBackStack("pills2")
                         .commit();
                 break;
@@ -69,6 +76,31 @@ public class MainActivity extends AbstractNavDrawerActivity {
                         .addToBackStack("pills3")
                         .commit();
                 break;
+
+            case 104:
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.content_frame, new PillsReminderFragment(PillReminder.STATE_ARCHIVE))
+                        .addToBackStack("pills2")
+                        .commit();
+                break;
+
+            case 105:
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.content_frame, new PillsReminderFragment(PillReminder.STATE_DELETED))
+                        .addToBackStack("pills2")
+                        .commit();
+                break;
+            case 201:
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/html");
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"feedback@pillreminder.com"});
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Subject");
+                intent.putExtra(Intent.EXTRA_TEXT, "I'm email body.");
+                startActivity(intent);
+                break;
+
         }
     }
 }

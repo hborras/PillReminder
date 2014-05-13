@@ -41,6 +41,8 @@
     <string name="dialog_remove_pill">Do you want to remove this pill?</string>
     <string name="dialog_remove_pill_title">Remove Pill</string>
     <string name="dialog_remove_pill_message">Do you want to remove this pill? If you select YES, all pill reminders related to this pill will be removed too.</string>
+    <string name="dialog_remove_pill_reminder_title">Remove Pill Reminder</string>
+    <string name="dialog_remove_pill_reminder_message">Do you want to remove this pill reminder?</string>
     <string name="positive_button">Yes</string>
     <string name="negative_button">No</string>
     <string name="type_select_date">You must select a valid date start, a valid date finish and a description</string>

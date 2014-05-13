@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import com.plaglabs.pillreminder.app.R;
 
+import SQLite.Database.PillReminderDBHelper;
+import SQLite.Model.PillReminder;
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardThumbnail;
 
@@ -17,8 +19,17 @@ public class PillReminderCard extends Card {
     protected TextView mTitle;
     protected TextView mSecondaryTitle;
     protected int resourceIdThumbnail;
+    protected int card_pillReminder_id;
 
-    protected int card_pill_id;
+    public int getCard_pillReminder_status() {
+        return card_pillReminder_status;
+    }
+
+    public void setCard_pillReminder_status(int card_pillReminder_status) {
+        this.card_pillReminder_status = card_pillReminder_status;
+    }
+
+    protected int card_pillReminder_status;
 
     protected String title;
     protected String secondaryTitle;
@@ -44,7 +55,26 @@ public class PillReminderCard extends Card {
 
         addCardThumbnail(cardThumbnail);
 
-        setSwipeable(false);
+        setSwipeable(true);
+
+        setOnSwipeListener(new OnSwipeListener() {
+            @Override
+            public void onSwipe(Card card) {
+                PillReminderDBHelper db = new PillReminderDBHelper(getContext());
+                switch (card_pillReminder_status){
+                    case PillReminder.STATE_ACTIVE:
+                        db.updatePillReminderState(card_pillReminder_id, PillReminder.STATE_ARCHIVE);
+                        break;
+                    case PillReminder.STATE_ARCHIVE:
+                        db.updatePillReminderState(card_pillReminder_id, PillReminder.STATE_DELETED);
+                        break;
+                    case PillReminder.STATE_DELETED:
+                        db.deletePillReminder(card_pillReminder_id);
+                        break;
+                }
+                db.closeDB();
+            }
+        });
 
     }
 
@@ -87,12 +117,12 @@ public class PillReminderCard extends Card {
         this.resourceIdThumbnail = resourceIdThumbnail;
     }
 
-    public int getCard_pill_id() {
-        return card_pill_id;
+    public int getCard_pillReminder_id() {
+        return card_pillReminder_id;
     }
 
-    public void setCard_pill_id(int card_pill_id) {
-        this.card_pill_id = card_pill_id;
+    public void setCard_pillReminder_id(int card_pillReminder_id) {
+        this.card_pillReminder_id = card_pillReminder_id;
     }
 }
 
