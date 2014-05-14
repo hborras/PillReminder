@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.plaglabs.pillreminder.app.AlarmScheduler;
 import com.plaglabs.pillreminder.app.R;
 import com.plaglabs.pillreminder.app.Utils.DialogDate;
 import com.plaglabs.pillreminder.app.Utils.DialogHour;
@@ -92,9 +93,14 @@ public class EveryHoursFragment extends Fragment {
                     db.createPillReminder(pillReminder);
 
                     db.closeDB();
+
+                    createAlarm();
+
+                    Fragment fragment;
+                    fragment = PillsReminderFragment.newInstance(PillReminder.STATE_ACTIVE);
                     getFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.content_frame,new PillsReminderFragment(PillReminder.STATE_ACTIVE))
+                            .replace(R.id.content_frame,fragment)
                             .addToBackStack("new")
                             .commit();
                 } else {
@@ -104,6 +110,30 @@ public class EveryHoursFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void createAlarm() {
+        AlarmScheduler alarm = new AlarmScheduler();
+        int reminderId = pillReminder.getmReminderId();
+        int year;
+        int month;
+        int day;
+        int hour;
+        int minute;
+        int everyHour = Integer.parseInt(etEveryHours.getText().toString());
+
+        String date = pillReminder.getmDateStart();
+
+        year = Integer.parseInt(date.substring(6,10));
+        month = Integer.parseInt(date.substring(3,5)) - 1;
+        day = Integer.parseInt(date.substring(0,2));
+
+        String time = pillReminder.getMhourStart();
+
+        hour = Integer.parseInt(time.substring(0,2));
+        minute = Integer.parseInt(time.substring(3,5));
+
+        alarm.scheduleAlarm(getActivity(),reminderId,year,month,day,hour,minute,everyHour);
     }
 
     private boolean checkNext() {

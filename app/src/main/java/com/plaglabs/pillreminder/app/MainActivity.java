@@ -1,14 +1,19 @@
 package com.plaglabs.pillreminder.app;
 
+import android.app.AlarmManager;
 import android.app.Fragment;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.plaglabs.pillreminder.app.PillReminder.PillSelectFragment;
-import com.plaglabs.pillreminder.app.PillReminder.PillsReminderArchiveFragment;
-import com.plaglabs.pillreminder.app.PillReminder.PillsReminderDeleteFragment;
 import com.plaglabs.pillreminder.app.PillReminder.PillsReminderFragment;
 import com.plaglabs.pillreminder.app.Pills.PillsFragment;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import SQLite.Model.PillReminder;
 
@@ -107,6 +112,9 @@ public class MainActivity extends AbstractNavDrawerActivity {
                 intent.putExtra(Intent.EXTRA_SUBJECT, "Subject");
                 intent.putExtra(Intent.EXTRA_TEXT, "I'm email body.");
                 startActivity(intent);
+                break;
+
+            case 202:
                 break;
 
         }
