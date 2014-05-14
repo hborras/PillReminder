@@ -7,4 +7,5 @@
 gradle.properties
 gradlew
 gradlew.bat
+/app/app.iml
 
