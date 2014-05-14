@@ -42,16 +42,18 @@ public class PillsReminderFragment extends Fragment {
     ActionMode mActionMode;
     private int status;
 
-    public PillsReminderFragment() {
-    }
-
-    public PillsReminderFragment(int status) {
-        this.status = status;
+    public static PillsReminderFragment newInstance(int status) {
+        PillsReminderFragment frag = new PillsReminderFragment();
+        Bundle args = new Bundle();
+        args.putInt("status", status);
+        frag.setArguments(args);
+        return frag;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        status = getArguments().getInt("status");
         setHasOptionsMenu(true);
         db = new PillReminderDBHelper(getActivity());
         mPills = db.getAllPillRemindersWithPill(status);

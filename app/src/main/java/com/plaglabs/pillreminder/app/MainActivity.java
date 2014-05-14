@@ -1,5 +1,6 @@
 package com.plaglabs.pillreminder.app;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -18,9 +19,11 @@ public class MainActivity extends AbstractNavDrawerActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if ( savedInstanceState == null ) {
+            Fragment fragment;
+            fragment = PillsReminderFragment.newInstance(PillReminder.STATE_ACTIVE);
             getFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.content_frame, new PillsReminderFragment(PillReminder.STATE_ACTIVE))
+                    .replace(R.id.content_frame, fragment)
                     .addToBackStack("Pills1")
                     .commit();
         }
@@ -54,6 +57,7 @@ public class MainActivity extends AbstractNavDrawerActivity {
 
     @Override
     protected void onNavItemSelected(int id) {
+        Fragment fragment;
         switch (id) {
             case 101:
                 getFragmentManager()
@@ -63,9 +67,11 @@ public class MainActivity extends AbstractNavDrawerActivity {
                         .commit();
                 break;
             case 102:
+                //PillsReminderFragment pillsReminderFragment = null;
+                fragment = PillsReminderFragment.newInstance(PillReminder.STATE_ACTIVE);
                 getFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.content_frame, new PillsReminderFragment(PillReminder.STATE_ACTIVE))
+                        .replace(R.id.content_frame, fragment)
                         .addToBackStack("pills2")
                         .commit();
                 break;
@@ -78,17 +84,19 @@ public class MainActivity extends AbstractNavDrawerActivity {
                 break;
 
             case 104:
+                fragment = PillsReminderFragment.newInstance(PillReminder.STATE_ARCHIVE);
                 getFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.content_frame, new PillsReminderFragment(PillReminder.STATE_ARCHIVE))
+                        .replace(R.id.content_frame, fragment)
                         .addToBackStack("pills2")
                         .commit();
                 break;
 
             case 105:
+                fragment = PillsReminderFragment.newInstance(PillReminder.STATE_DELETED);
                 getFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.content_frame, new PillsReminderFragment(PillReminder.STATE_DELETED))
+                        .replace(R.id.content_frame, fragment)
                         .addToBackStack("pills2")
                         .commit();
                 break;
