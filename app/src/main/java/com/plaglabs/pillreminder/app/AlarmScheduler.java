@@ -33,6 +33,8 @@ public class AlarmScheduler {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         PendingIntent alarmIntent = PendingIntent.getBroadcast(context,reminderId,intentAlarm,0);
+        intentAlarm.putExtra("reminderId",reminderId);
+
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
@@ -41,7 +43,7 @@ public class AlarmScheduler {
         calendar.set(Calendar.DAY_OF_MONTH,day);
         calendar.set(Calendar.HOUR_OF_DAY, hour);
         calendar.set(Calendar.MINUTE, minute);
-        calendar.set(Calendar.SECOND,every_hours);
+        calendar.set(Calendar.SECOND,0);
 
         Log.e("Alarm",String.valueOf(year));
         Log.e("Alarm",String.valueOf(month));
@@ -55,7 +57,5 @@ public class AlarmScheduler {
         //set the alarm for particular time
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                 every_hours * 1000 , alarmIntent);
-        Toast.makeText(context, "Actual time: " + System.currentTimeMillis() + "\n" + "Alarm Time: " + calendar.getTimeInMillis(), Toast.LENGTH_SHORT).show();
-
     }
 }

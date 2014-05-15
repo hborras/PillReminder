@@ -132,7 +132,7 @@ public class EveryHoursFragment extends Fragment {
 
         hour = Integer.parseInt(time.substring(0,2));
         minute = Integer.parseInt(time.substring(3,5));
-
+        Toast.makeText(getActivity(),String.valueOf(reminderId),Toast.LENGTH_SHORT).show();
         alarm.scheduleAlarm(getActivity(),reminderId,year,month,day,hour,minute,everyHour);
     }
 

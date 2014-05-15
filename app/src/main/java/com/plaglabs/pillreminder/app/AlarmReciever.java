@@ -3,7 +3,11 @@ package com.plaglabs.pillreminder.app;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.PowerManager;
 import android.os.Vibrator;
+import android.support.v4.content.WakefulBroadcastReceiver;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 /**
@@ -11,15 +15,14 @@ import android.widget.Toast;
  */
 public class AlarmReciever extends BroadcastReceiver
 {
+
+
     @Override
     public void onReceive(Context context, Intent intent)
     {
-        Toast.makeText(context, String.valueOf(System.currentTimeMillis()),
-                Toast.LENGTH_LONG).show();
-        // Vibrate the mobile phone
-        Vibrator vibrator = (Vibrator) context
-                .getSystemService(Context.VIBRATOR_SERVICE);
-        vibrator.vibrate(2000);
+        Intent scheduledIntent = new Intent(context, AlarmActivity.class);
+        scheduledIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(scheduledIntent);
     }
 
 }

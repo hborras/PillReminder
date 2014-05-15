@@ -183,7 +183,14 @@ public class TypeSelectFragment extends Fragment {
             mon = String.valueOf(month + 1);
         }
 
-        String date = String.valueOf(day) + "/" + mon + "/" + String.valueOf(year);
+        String da;
+        if (day < 10){
+            da = "0" + String.valueOf(day);
+        } else {
+            da = String.valueOf(day);
+        }
+
+        String date = da + "/" + mon + "/" + String.valueOf(year);
         SpannableString spanString = new SpannableString(date);
         spanString.setSpan(new UnderlineSpan(), 0, spanString.length(), 0);
         switch (code) {
