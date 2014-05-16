@@ -1,10 +1,15 @@
 package com.plaglabs.pillreminder.app.PillReminder;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.plaglabs.pillreminder.app.AlarmReciever;
 import com.plaglabs.pillreminder.app.R;
 
 import SQLite.Database.PillReminderDBHelper;
@@ -64,6 +69,7 @@ public class PillReminderCard extends Card {
                 switch (card_pillReminder_status){
                     case PillReminder.STATE_ACTIVE:
                         db.updatePillReminderState(card_pillReminder_id, PillReminder.STATE_ARCHIVE);
+                        unableAlarm(card_pillReminder_id);
                         break;
                     case PillReminder.STATE_ARCHIVE:
                         db.updatePillReminderState(card_pillReminder_id, PillReminder.STATE_DELETED);
@@ -76,6 +82,13 @@ public class PillReminderCard extends Card {
             }
         });
 
+    }
+
+    private void unableAlarm(int card_pillReminder_id) {
+        Intent intentAlarm = new Intent(mContext, AlarmReciever.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(mContext,card_pillReminder_id, intentAlarm, 0);
+        AlarmManager alarmManager = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.cancel(pendingIntent);
     }
 
     @Override

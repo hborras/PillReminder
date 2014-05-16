@@ -75,6 +75,7 @@ public class TypeSelectFragment extends Fragment {
         rbHours = (RadioButton) view.findViewById(R.id.rbHours);
         rbHours.setChecked(true);
         rbDays = (RadioButton) view.findViewById(R.id.rbDays);
+        rbDays.setEnabled(false);
 
         tvDateStart = (TextView) view.findViewById(R.id.tvDateStart);
 
@@ -120,7 +121,8 @@ public class TypeSelectFragment extends Fragment {
                     if(rbHours.isChecked()){
                         fragment = new EveryHoursFragment(pillReminder);
                     } else {
-                        fragment = new DaysMealsFragment();
+                        //fragment = new DaysMealsFragment();
+                        fragment = new EveryHoursFragment(pillReminder);
                     }
 
                     getFragmentManager()

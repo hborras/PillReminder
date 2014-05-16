@@ -27,13 +27,14 @@ public class AlarmScheduler {
         // given AlarmReciever in the Intent, the onRecieve() method of this class will execute when
         // alarm triggers and
         //we will write the code to send SMS inside onRecieve() method pf Alarmreciever class
+        Log.e("Alarm",String.valueOf(reminderId));
         Intent intentAlarm = new Intent(context, AlarmReciever.class);
 
         // create the object
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-
-        PendingIntent alarmIntent = PendingIntent.getBroadcast(context,reminderId,intentAlarm,0);
         intentAlarm.putExtra("reminderId",reminderId);
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(context,reminderId,intentAlarm,0);
+
 
 
         Calendar calendar = Calendar.getInstance();
@@ -45,12 +46,12 @@ public class AlarmScheduler {
         calendar.set(Calendar.MINUTE, minute);
         calendar.set(Calendar.SECOND,0);
 
-        Log.e("Alarm",String.valueOf(year));
+     /*   Log.e("Alarm",String.valueOf(year));
         Log.e("Alarm",String.valueOf(month));
         Log.e("Alarm",String.valueOf(day));
         Log.e("Alarm",String.valueOf(hour));
         Log.e("Alarm",String.valueOf(minute));
-        Log.e("Alarm",String.valueOf(every_hours));
+        Log.e("Alarm",String.valueOf(every_hours));*/
 
 
 

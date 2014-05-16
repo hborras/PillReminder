@@ -13,6 +13,7 @@ import com.plaglabs.pillreminder.app.R;
 
 import SQLite.Database.PillReminderDBHelper;
 import SQLite.Model.Pill;
+import SQLite.Model.PillReminder;
 
 /**
  * Created by plagueis on 10/05/14.
@@ -24,13 +25,14 @@ public class DialogConfirmation extends DialogFragment {
 
     PillReminderDBHelper db;
 
-    public static DialogConfirmation newInstance(int title, int message, int code,int id) {
+    public static DialogConfirmation newInstance(int title, int message, int code,int id,int status) {
         DialogConfirmation frag = new DialogConfirmation();
         Bundle args = new Bundle();
         args.putInt("title", title);
         args.putInt("message",message);
         args.putInt("code",code);
         args.putInt("id",id);
+        args.putInt("status",status);
         frag.setArguments(args);
         return frag;
     }
@@ -41,6 +43,7 @@ public class DialogConfirmation extends DialogFragment {
         int title = getArguments().getInt("title");
         final int code = getArguments().getInt("code");
         final int id = getArguments().getInt("id");
+        final int status = getArguments().getInt("status");
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(message)
                 .setTitle(title)
@@ -57,9 +60,9 @@ public class DialogConfirmation extends DialogFragment {
                                 break;
                             case DELETE_PILL_REMINDER:
                                 db = new PillReminderDBHelper(getActivity());
-                                db.deletePillReminder(id);
+                                db.updatePillReminderState(id, PillReminder.STATE_DELETED);
                                 db.closeDB();
-                                fragment = new PillsReminderFragment();
+                                fragment = PillsReminderFragment.newInstance(status);
                                 break;
 
                         }

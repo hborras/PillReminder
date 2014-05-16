@@ -23,7 +23,6 @@
         </activity>
         
         <activity android:name=".AlarmActivity">
-
         </activity>
 
         <receiver android:name="AlarmReciever">

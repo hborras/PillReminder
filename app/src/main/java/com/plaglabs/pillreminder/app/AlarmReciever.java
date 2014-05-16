@@ -22,6 +22,7 @@ public class AlarmReciever extends BroadcastReceiver
     {
         Intent scheduledIntent = new Intent(context, AlarmActivity.class);
         scheduledIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        scheduledIntent.putExtra("reminderId",intent.getExtras().getInt("reminderId"));
         context.startActivity(scheduledIntent);
     }
 

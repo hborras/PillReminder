@@ -46,4 +46,10 @@
     <string name="positive_button">Yes</string>
     <string name="negative_button">No</string>
     <string name="type_select_date">You must select a valid date start, a valid date finish and a description</string>
+    <string name="menu_action_view_pill_reminder">View Pill Reminder</string>
+    <string name="menu_action_archive_pill_reminder">Archive Pill Reminder</string>
+    <string name="menu_action_restore_pill_reminder">Restore Pill Reminder</string>
+    <string name="menu_action_delete_pill_reminder">Delete Pill Reminder</string>
+    <string name="menu_action_add_pill_reminder">Add Pill Reminder</string>
+    <string name="menu_action_settings">Settings</string>
 </resources>

@@ -4,12 +4,10 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -17,15 +15,11 @@ import android.widget.Toast;
 
 import com.plaglabs.pillreminder.app.AlarmScheduler;
 import com.plaglabs.pillreminder.app.R;
-import com.plaglabs.pillreminder.app.Utils.DialogDate;
 import com.plaglabs.pillreminder.app.Utils.DialogHour;
 
 import SQLite.Database.PillReminderDBHelper;
 import SQLite.Model.PillReminder;
 
-/**
- * Created by plagueis on 11/05/14.
- */
 public class EveryHoursFragment extends Fragment {
 
     PillReminderDBHelper db;
@@ -35,8 +29,6 @@ public class EveryHoursFragment extends Fragment {
     Button btnSave, btnCancel;
     private boolean tvHourStartHasTime=false;
 
-    public EveryHoursFragment() {
-    }
 
     public EveryHoursFragment(PillReminder pillReminder) {
         this.pillReminder = pillReminder;
@@ -88,7 +80,6 @@ public class EveryHoursFragment extends Fragment {
                     // TODO Look for next Reminder ID
                     db = new PillReminderDBHelper(getActivity());
                     int newReminderId = db.getNextReminderId();
-                    Log.e("Test", String.valueOf(newReminderId));
                     pillReminder.setmReminderId(newReminderId);
                     db.createPillReminder(pillReminder);
 
@@ -132,7 +123,6 @@ public class EveryHoursFragment extends Fragment {
 
         hour = Integer.parseInt(time.substring(0,2));
         minute = Integer.parseInt(time.substring(3,5));
-        Toast.makeText(getActivity(),String.valueOf(reminderId),Toast.LENGTH_SHORT).show();
         alarm.scheduleAlarm(getActivity(),reminderId,year,month,day,hour,minute,everyHour);
     }
 
@@ -147,9 +137,6 @@ public class EveryHoursFragment extends Fragment {
     }
 
     private class DialogTimeSelect extends DialogHour {
-
-        int code;
-
         private DialogTimeSelect() {
         }
 

@@ -38,15 +38,13 @@ public class MainActivity extends AbstractNavDrawerActivity {
     protected NavDrawerActivityConfiguration getNavDrawerConfiguration() {
 
         NavDrawerItem[] menu = new NavDrawerItem[] {
-                NavMenuItem.create(101,getResources().getString(R.string.navdrawer_item_nextpills), R.drawable.action_search, true, this),
-                NavMenuItem.create(102,getResources().getString(R.string.navdrawer_item_activepills), R.drawable.action_search, true, this),
-                NavMenuItem.create(103,getResources().getString(R.string.navdrawer_item_pills), R.drawable.pill_red, true, this),
-                NavMenuItem.create(104,getResources().getString(R.string.navdrawer_item_archived),R.drawable.action_search, true, this),
-                NavMenuItem.create(105,getResources().getString(R.string.navdrawer_item_deleted),R.drawable.action_search, true, this),
+                NavMenuItem.create(101,getResources().getString(R.string.navdrawer_item_activepills), R.drawable.pill_green, true, this),
+                NavMenuItem.create(102,getResources().getString(R.string.navdrawer_item_pills), R.drawable.pill_red, true, this),
+                NavMenuItem.create(103,getResources().getString(R.string.navdrawer_item_archived),R.drawable.pill_blue, true, this),
+                NavMenuItem.create(104,getResources().getString(R.string.navdrawer_item_deleted),R.drawable.pill_grey, true, this),
                 NavMenuSection.create(200, getResources().getString(R.string.others)),
-                NavMenuItem.create(201, getResources().getString(R.string.navdrawer_item_feedback), R.drawable.action_search, true, this),
-                NavMenuItem.create(202, getResources().getString(R.string.navdrawer_item_help),R.drawable.ic_action_help , true, this)};
-
+                NavMenuItem.create(201, getResources().getString(R.string.navdrawer_item_feedback), R.drawable.ic_action_email_dark, true, this),
+                NavMenuItem.create(202, getResources().getString(R.string.navdrawer_item_help),R.drawable.ic_action_help_dark, true, this)};
         NavDrawerActivityConfiguration navDrawerActivityConfiguration = new NavDrawerActivityConfiguration();
         navDrawerActivityConfiguration.setMainLayout(R.layout.activity_main);
         navDrawerActivityConfiguration.setDrawerLayoutId(R.id.drawer_layout);
@@ -65,13 +63,6 @@ public class MainActivity extends AbstractNavDrawerActivity {
         Fragment fragment;
         switch (id) {
             case 101:
-                getFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.content_frame, new PillSelectFragment())
-                        .addToBackStack("pills2")
-                        .commit();
-                break;
-            case 102:
                 //PillsReminderFragment pillsReminderFragment = null;
                 fragment = PillsReminderFragment.newInstance(PillReminder.STATE_ACTIVE);
                 getFragmentManager()
@@ -80,7 +71,7 @@ public class MainActivity extends AbstractNavDrawerActivity {
                         .addToBackStack("pills2")
                         .commit();
                 break;
-            case 103:
+            case 102:
                 getFragmentManager()
                         .beginTransaction()
                         .replace(R.id.content_frame, new PillsFragment())
@@ -88,7 +79,7 @@ public class MainActivity extends AbstractNavDrawerActivity {
                         .commit();
                 break;
 
-            case 104:
+            case 103:
                 fragment = PillsReminderFragment.newInstance(PillReminder.STATE_ARCHIVE);
                 getFragmentManager()
                         .beginTransaction()
@@ -97,7 +88,7 @@ public class MainActivity extends AbstractNavDrawerActivity {
                         .commit();
                 break;
 
-            case 105:
+            case 104:
                 fragment = PillsReminderFragment.newInstance(PillReminder.STATE_DELETED);
                 getFragmentManager()
                         .beginTransaction()
@@ -112,9 +103,7 @@ public class MainActivity extends AbstractNavDrawerActivity {
                 intent.putExtra(Intent.EXTRA_SUBJECT, "Subject");
                 intent.putExtra(Intent.EXTRA_TEXT, "I'm email body.");
                 startActivity(intent);
-                break;
-
-            case 202:
+                break;            case 202:
                 break;
 
         }

@@ -19,8 +19,7 @@
             android:paddingRight="2dp"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_action_camera"/>
+            android:layout_gravity="center"/>
     </LinearLayout>
 
     <TextView

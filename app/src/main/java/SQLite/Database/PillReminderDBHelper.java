@@ -538,6 +538,58 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
         return pillPillReminders;
     }
 
+    public Pill_PillReminder getPillReminderWithPill(int reminderId){
+        String selectQuery = "SELECT"
+                + " " + TABLE_PILL +  "." + KEY_ID  + " as " + TABLE_PILL + KEY_ID
+                + ", " + TABLE_PILL +  "." + KEY_NAME  + " as " + TABLE_PILL + KEY_NAME
+                + ", " + TABLE_PILL +  "." + KEY_IMAGE  + " as " + TABLE_PILL + KEY_IMAGE
+                + ", " + TABLE_PILL +  "." + KEY_CREATED_AT  + " as " + TABLE_PILL + KEY_CREATED_AT
+                + ", " + TABLE_PILL_REMINDER +  "." + KEY_PILL_REMINDER_EVERY_HOURS  + " as " + TABLE_PILL_REMINDER + KEY_PILL_REMINDER_EVERY_HOURS
+                + ", " + TABLE_PILL_REMINDER +  "." + KEY_DATE_START  + " as " + TABLE_PILL_REMINDER + KEY_DATE_START
+                + ", " + TABLE_PILL_REMINDER +  "." + KEY_DATE_FINISH  + " as " + TABLE_PILL_REMINDER + KEY_DATE_FINISH
+                + ", " + TABLE_PILL_REMINDER +  "." + KEY_PILL_REMINDER_DESCRIPTION  + " as " + TABLE_PILL_REMINDER + KEY_PILL_REMINDER_DESCRIPTION
+                + ", " + TABLE_PILL_REMINDER +  "." + KEY_REMINDER_ID  + " as " + TABLE_PILL_REMINDER + KEY_REMINDER_ID
+                + ", " + TABLE_PILL_REMINDER +  "." + KEY_PILL_REMINDER_STATUS  + " as " + TABLE_PILL_REMINDER + KEY_PILL_REMINDER_STATUS
+                + ", " + TABLE_PILL_REMINDER +  "." + KEY_PILL_REMINDER_HOURSTART  + " as " + TABLE_PILL_REMINDER + KEY_PILL_REMINDER_HOURSTART
+                + ", " + TABLE_PILL_REMINDER +  "." + KEY_PILL_REMINDER_STATUS  + " as " + TABLE_PILL_REMINDER + KEY_PILL_REMINDER_STATUS
+                + " FROM " + TABLE_PILL_REMINDER + " LEFT JOIN " + TABLE_PILL
+                + " ON "+ TABLE_PILL + "." + KEY_ID + " = " + TABLE_PILL_REMINDER + "." + KEY_PILL_REMINDER_PILL_ID
+                + " WHERE "+ TABLE_PILL_REMINDER+ "." + KEY_REMINDER_ID + "=" + reminderId;
+        Log.e(LOG, selectQuery);
+        Pill_PillReminder pillPillReminder = new Pill_PillReminder();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        if (c.moveToFirst()) {
+            do {
+                Pill pill = new Pill();
+                pill.setmId(c.getInt((c.getColumnIndex(TABLE_PILL + KEY_ID))));
+                pill.setmName((c.getString(c.getColumnIndex(TABLE_PILL + KEY_NAME))));
+                pill.setmImage((c.getInt(c.getColumnIndex(TABLE_PILL + KEY_IMAGE))));
+                pill.setmCreatedAt((c.getString(c.getColumnIndex(TABLE_PILL + KEY_CREATED_AT))));
+                pillPillReminder.setPill(pill);
+
+
+                PillReminder pillReminder = new PillReminder();
+                pillReminder.setmReminderId(c.getInt(c.getColumnIndex(TABLE_PILL_REMINDER + KEY_REMINDER_ID)));
+                pillReminder.setmStatus(c.getInt(c.getColumnIndex(TABLE_PILL_REMINDER + KEY_PILL_REMINDER_STATUS)));
+                pillReminder.setmEveryHours(c.getInt(c.getColumnIndex(TABLE_PILL_REMINDER + KEY_PILL_REMINDER_EVERY_HOURS)));
+                pillReminder.setmEveryHours(c.getInt(c.getColumnIndex(TABLE_PILL_REMINDER + KEY_PILL_REMINDER_STATUS)));
+                pillReminder.setmDateStart(c.getString(c.getColumnIndex(TABLE_PILL_REMINDER + KEY_DATE_START)));
+                pillReminder.setmDateFinish(c.getString(c.getColumnIndex(TABLE_PILL_REMINDER + KEY_DATE_FINISH)));
+                pillReminder.setmDescription(c.getString(c.getColumnIndex(TABLE_PILL_REMINDER + KEY_PILL_REMINDER_DESCRIPTION)));
+                pillReminder.setMhourStart((c.getString(c.getColumnIndex(TABLE_PILL_REMINDER + KEY_PILL_REMINDER_HOURSTART))));
+                pillPillReminder.setPillReminder(pillReminder);
+
+                if(MainActivity.DEBUG>0){
+                    pill.LogPill();
+                    pillReminder.LogPillReminder();
+                }
+
+            } while (c.moveToNext());
+        }
+        return pillPillReminder;
+    }
+
     public int getNextReminderId(){
         int reminderId = 0;
         String selectQuery = "SELECT max(" + KEY_REMINDER_ID + ") as maxReminderId"

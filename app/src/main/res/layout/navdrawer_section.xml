@@ -7,7 +7,7 @@
         android:id="@+id/navmenusection_label"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textSize="22sp"
+        android:textSize="20sp"
         android:paddingTop="7dp"
         android:paddingBottom="7dp"
         android:textColor="#FFFFFF"
