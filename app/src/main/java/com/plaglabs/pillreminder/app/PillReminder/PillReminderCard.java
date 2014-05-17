@@ -23,6 +23,7 @@ import it.gmariotti.cardslib.library.internal.CardThumbnail;
 public class PillReminderCard extends Card {
     protected TextView mTitle;
     protected TextView mSecondaryTitle;
+    protected TextView mStartEvery;
     protected int resourceIdThumbnail;
     protected int card_pillReminder_id;
 
@@ -38,6 +39,24 @@ public class PillReminderCard extends Card {
 
     protected String title;
     protected String secondaryTitle;
+    protected String startEvery;
+    protected String dayStartFinish;
+
+    public String getDayStartFinish() {
+        return dayStartFinish;
+    }
+
+    public void setDayStartFinish(String dayStartFinish) {
+        this.dayStartFinish = dayStartFinish;
+    }
+
+    public String getStartEvery() {
+        return startEvery;
+    }
+
+    public void setStartEvery(String startEvery) {
+        this.startEvery = startEvery;
+    }
 
     public PillReminderCard(Context context) {
         this(context, R.layout.pill_reminder_card);
@@ -97,12 +116,17 @@ public class PillReminderCard extends Card {
         //Retrieve elements
         mTitle = (TextView) parent.findViewById(R.id.card_title);
         mSecondaryTitle = (TextView) parent.findViewById(R.id.card_secondaryTitle);
-
+        mStartEvery = (TextView) parent.findViewById(R.id.startEvery);
         if (mTitle != null)
             mTitle.setText(title);
 
         if (mSecondaryTitle != null)
             mSecondaryTitle.setText(secondaryTitle);
+
+        if(mStartEvery !=null){
+            mStartEvery.setText(startEvery);
+        }
+
     }
 
 

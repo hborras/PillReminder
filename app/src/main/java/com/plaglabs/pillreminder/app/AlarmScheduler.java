@@ -46,17 +46,21 @@ public class AlarmScheduler {
         calendar.set(Calendar.MINUTE, minute);
         calendar.set(Calendar.SECOND,0);
 
+        Calendar calendarNow = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+
+        while (calendar.getTimeInMillis()< calendarNow.getTimeInMillis()){
+            calendar.add(Calendar.MINUTE,every_hours);
+        }
+
      /*   Log.e("Alarm",String.valueOf(year));
         Log.e("Alarm",String.valueOf(month));
         Log.e("Alarm",String.valueOf(day));
         Log.e("Alarm",String.valueOf(hour));
         Log.e("Alarm",String.valueOf(minute));
         Log.e("Alarm",String.valueOf(every_hours));*/
-
-
-
         //set the alarm for particular time
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                every_hours * 1000 , alarmIntent);
+                every_hours * 1000 * 60 , alarmIntent);
     }
 }

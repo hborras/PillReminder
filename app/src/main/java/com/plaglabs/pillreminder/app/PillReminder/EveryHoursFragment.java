@@ -29,6 +29,8 @@ public class EveryHoursFragment extends Fragment {
     Button btnSave, btnCancel;
     private boolean tvHourStartHasTime=false;
 
+    public EveryHoursFragment() {
+    }
 
     public EveryHoursFragment(PillReminder pillReminder) {
         this.pillReminder = pillReminder;

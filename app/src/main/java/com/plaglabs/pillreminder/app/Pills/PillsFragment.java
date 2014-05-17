@@ -173,7 +173,7 @@ public class PillsFragment extends Fragment {
             PillCard pillCard = (PillCard) mPillsList.getItemAtPosition(position);
             DialogConfirmation dialogConfirmation = null;
             dialogConfirmation = DialogConfirmation.newInstance(R.string.dialog_remove_pill_title,
-                    R.string.dialog_remove_pill_message, DialogConfirmation.DELETE_PILL,pillCard.getCard_pill_id());
+                    R.string.dialog_remove_pill_message, DialogConfirmation.DELETE_PILL,pillCard.getCard_pill_id(),0);
             dialogConfirmation.show(getFragmentManager(), "dialog");
         }
 

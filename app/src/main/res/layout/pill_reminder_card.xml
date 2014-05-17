@@ -4,16 +4,31 @@
     android:layout_marginLeft="3dp"
     android:gravity="center_vertical"
     android:layout_height="96dp">
-    <TextView
-        android:id="@+id/card_title"
-        style="@style/card_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/card_title"
+            style="@style/card_title"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/startEvery"
+            style="@style/card_title"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:paddingRight="5dp"
+            android:layout_height="wrap_content"/>
 
-    <TextView
-        android:id="@+id/card_secondaryTitle"
-        style="@style/card_secondarytitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
+    </LinearLayout>
+        <TextView
+            android:id="@+id/card_secondaryTitle"
+            style="@style/card_secondarytitle"
+            android:layout_width="fill_parent"
+            android:paddingRight="5dp"
+            android:gravity="right"
+            android:layout_height="wrap_content"/>
 </LinearLayout>

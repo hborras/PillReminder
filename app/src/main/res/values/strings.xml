@@ -52,4 +52,10 @@
     <string name="menu_action_delete_pill_reminder">Delete Pill Reminder</string>
     <string name="menu_action_add_pill_reminder">Add Pill Reminder</string>
     <string name="menu_action_settings">Settings</string>
+    <string name="menu_action_save_pill_reminder">Save Pill Reminder</string>
+    <plurals
+        name="hours">
+        <item quantity="one">Every: 1 Hour</item>
+        <item quantity="other">Every: %d  Hours</item>
+    </plurals>
 </resources>

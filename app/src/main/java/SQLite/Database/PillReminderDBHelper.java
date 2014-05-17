@@ -520,7 +520,7 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
                 pillReminder.setmReminderId(c.getInt(c.getColumnIndex(TABLE_PILL_REMINDER + KEY_REMINDER_ID)));
                 pillReminder.setmStatus(c.getInt(c.getColumnIndex(TABLE_PILL_REMINDER + KEY_PILL_REMINDER_STATUS)));
                 pillReminder.setmEveryHours(c.getInt(c.getColumnIndex(TABLE_PILL_REMINDER + KEY_PILL_REMINDER_EVERY_HOURS)));
-                pillReminder.setmEveryHours(c.getInt(c.getColumnIndex(TABLE_PILL_REMINDER + KEY_PILL_REMINDER_STATUS)));
+                pillReminder.setmStatus(c.getInt(c.getColumnIndex(TABLE_PILL_REMINDER + KEY_PILL_REMINDER_STATUS)));
                 pillReminder.setmDateStart(c.getString(c.getColumnIndex(TABLE_PILL_REMINDER + KEY_DATE_START)));
                 pillReminder.setmDateFinish(c.getString(c.getColumnIndex(TABLE_PILL_REMINDER + KEY_DATE_FINISH)));
                 pillReminder.setmDescription(c.getString(c.getColumnIndex(TABLE_PILL_REMINDER + KEY_PILL_REMINDER_DESCRIPTION)));
@@ -573,7 +573,7 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
                 pillReminder.setmReminderId(c.getInt(c.getColumnIndex(TABLE_PILL_REMINDER + KEY_REMINDER_ID)));
                 pillReminder.setmStatus(c.getInt(c.getColumnIndex(TABLE_PILL_REMINDER + KEY_PILL_REMINDER_STATUS)));
                 pillReminder.setmEveryHours(c.getInt(c.getColumnIndex(TABLE_PILL_REMINDER + KEY_PILL_REMINDER_EVERY_HOURS)));
-                pillReminder.setmEveryHours(c.getInt(c.getColumnIndex(TABLE_PILL_REMINDER + KEY_PILL_REMINDER_STATUS)));
+                pillReminder.setmStatus(c.getInt(c.getColumnIndex(TABLE_PILL_REMINDER + KEY_PILL_REMINDER_STATUS)));
                 pillReminder.setmDateStart(c.getString(c.getColumnIndex(TABLE_PILL_REMINDER + KEY_DATE_START)));
                 pillReminder.setmDateFinish(c.getString(c.getColumnIndex(TABLE_PILL_REMINDER + KEY_DATE_FINISH)));
                 pillReminder.setmDescription(c.getString(c.getColumnIndex(TABLE_PILL_REMINDER + KEY_PILL_REMINDER_DESCRIPTION)));
