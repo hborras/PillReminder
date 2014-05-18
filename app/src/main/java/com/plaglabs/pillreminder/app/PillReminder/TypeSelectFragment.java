@@ -22,7 +22,9 @@ import com.plaglabs.pillreminder.app.Utils.DialogDate;
 
 import java.util.Calendar;
 
+import SQLite.Database.PillReminderDBHelper;
 import SQLite.Model.PillReminder;
+import SQLite.Model.Pill_PillReminder;
 
 /**
  * Created by plagueis on 11/05/14.
@@ -38,6 +40,14 @@ public class TypeSelectFragment extends Fragment {
     RadioButton rbHours, rbDays;
     EditText etDescription;
 
+    /*public static TypeSelectFragment newInstance(int pillReminderId) {
+        TypeSelectFragment frag = new TypeSelectFragment();
+        Bundle args = new Bundle();
+        args.putInt("pillReminderId", pillReminderId);
+        frag.setArguments(args);
+        return frag;
+    }*/
+
     public TypeSelectFragment() {
     }
 
@@ -46,25 +56,46 @@ public class TypeSelectFragment extends Fragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("pillId", pillReminder.getmPillId());
+        outState.putInt("status",pillReminder.getmStatus());
+        outState.putString("description",pillReminder.getmDescription());
+        outState.putString("dateStart",pillReminder.getmDateStart());
+        outState.putString("dateFinish",pillReminder.getmDateFinish());
+    }
 
-        if(!pillReminder.getmDescription().equalsIgnoreCase("")){
-            etDescription.setText(pillReminder.getmDescription());
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if(savedInstanceState !=null){
+            pillReminder = new PillReminder();
+            pillReminder.setmPillId(savedInstanceState.getInt("pillId"));
+            pillReminder.setmStatus(savedInstanceState.getInt("status"));
+            pillReminder.setmDescription(savedInstanceState.getString("description"));
+            pillReminder.setmDateStart(savedInstanceState.getString("dateStart"));
+            pillReminder.setmDateFinish(savedInstanceState.getString("dateFinish"));
         }
 
-        if(!pillReminder.getmDateStart().equalsIgnoreCase("")){
-            SpannableString spanString = new SpannableString(pillReminder.getmDateStart());
-            spanString.setSpan(new UnderlineSpan(), 0, spanString.length(), 0);
-            tvDateStart.setText(spanString);
-            tvDateStartHasDate = true;
-        }
+        if( pillReminder != null) {
+            if (!pillReminder.getmDescription().equalsIgnoreCase("")) {
+                etDescription.setText(pillReminder.getmDescription());
+            }
 
-        if(!pillReminder.getmDateFinish().equalsIgnoreCase("")){
-            SpannableString spanString2 = new SpannableString(pillReminder.getmDateFinish());
-            spanString2.setSpan(new UnderlineSpan(), 0, spanString2.length(), 0);
-            tvDateFinish.setText(spanString2);
-            tvDateFinishHasDate = true;
+            if (!pillReminder.getmDateStart().equalsIgnoreCase("")) {
+                SpannableString spanString = new SpannableString(pillReminder.getmDateStart());
+                spanString.setSpan(new UnderlineSpan(), 0, spanString.length(), 0);
+                tvDateStart.setText(spanString);
+                tvDateStartHasDate = true;
+            }
+
+            if (!pillReminder.getmDateFinish().equalsIgnoreCase("")) {
+                SpannableString spanString2 = new SpannableString(pillReminder.getmDateFinish());
+                spanString2.setSpan(new UnderlineSpan(), 0, spanString2.length(), 0);
+                tvDateFinish.setText(spanString2);
+                tvDateFinishHasDate = true;
+            }
         }
     }
 
@@ -190,7 +221,7 @@ public class TypeSelectFragment extends Fragment {
             cFinish.set(Calendar.MINUTE,0);
             cFinish.set(Calendar.SECOND,0);
 
-            if(cFinish.getTimeInMillis()  > cStart.getTimeInMillis()){
+            if(cFinish.getTimeInMillis()  >= cStart.getTimeInMillis()){
                 next = true;
             }
         }

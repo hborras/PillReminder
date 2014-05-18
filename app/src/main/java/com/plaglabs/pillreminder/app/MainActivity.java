@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
@@ -108,6 +109,10 @@ public class MainActivity extends AbstractNavDrawerActivity {
                 startActivity(intent);
                 break;
             case 202:
+                String url = "https://github.com/plagueis/PillReminder/tree/master#pillreminder";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
                 break;
 
         }

@@ -62,9 +62,11 @@ public class EveryHoursFragment extends Fragment {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Fragment fragment;
+                fragment =new  TypeSelectFragment(pillReminder); //.newInstance(pillReminder.getmReminderId());
                 getFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.content_frame, new TypeSelectFragment(pillReminder))
+                        .replace(R.id.content_frame, fragment)
                         .addToBackStack("Pills1")
                         .commit();
             }

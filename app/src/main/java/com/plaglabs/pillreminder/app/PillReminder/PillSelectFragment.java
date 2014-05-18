@@ -68,9 +68,11 @@ public class PillSelectFragment extends Fragment {
             card.setOnClickListener(new Card.OnCardClickListener() {
                 @Override
                 public void onClick(Card card, View view) {
+                    Fragment fragment;
+                    fragment = new TypeSelectFragment(pillReminder); //.newInstance(pillReminder.getmReminderId());
                     getFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.content_frame, new TypeSelectFragment(pillReminder))
+                            .replace(R.id.content_frame, fragment)
                             .addToBackStack("Pills3")
                             .commit();
                 }
