@@ -20,8 +20,8 @@
     <string name="others">Others</string>
     <string name="btn_new_pill_save">Save</string>
     <string name="btn_new_pill_cancel">Cancel</string>
-    <string name="txt_new_pill_name">Write Pill's name</string>
-    <string name="txt_new_pill_picture">Select Pill's Picture</string>
+    <string name="txt_new_pill_name">Write Pill\'s name</string>
+    <string name="txt_new_pill_picture">Select Pill\'s Picture</string>
     <string name="menu_action_addPill">Add Pill</string>
     <string name="new_pill_error_text">You can\'t create a new pill without no name</string>
     <string name="navdrawer_item_nextpills">Next Pills</string>
@@ -59,7 +59,10 @@
     <string name="selectDate">Select Date</string>
     <string name="lastAlarm">This was the last alarm, because the finish date has passed</string>
     <string name="selectPillAndStartHour">You must select  frequency of your pill and  start hour</string>
-    <string name="errorSave">You must fill  description name and  every hours' field. Also you can\'t select a finish date before start date</string>
+    <string name="errorSave">You must fill  description name and every hours\' field. Also you can\'t select a finish date before start date</string>
+    <string name="reminderArchived">Reminder Archived</string>
+    <string name="reminderDeleted">Reminder Deleted</string>
+    <string name="reminderRemoved">Reminder Removed</string>
     <plurals name="hours">
         <item quantity="one">Every: 1 Hour</item>
         <item quantity="other">Every: %d  Hours</item>

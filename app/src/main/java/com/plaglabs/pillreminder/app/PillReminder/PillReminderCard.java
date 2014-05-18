@@ -89,12 +89,15 @@ public class PillReminderCard extends Card {
                     case PillReminder.STATE_ACTIVE:
                         db.updatePillReminderState(card_pillReminder_id, PillReminder.STATE_ARCHIVE);
                         unableAlarm(card_pillReminder_id);
+                        Toast.makeText(getContext(),mContext.getString(R.string.reminderArchived),Toast.LENGTH_SHORT).show();
                         break;
                     case PillReminder.STATE_ARCHIVE:
                         db.updatePillReminderState(card_pillReminder_id, PillReminder.STATE_DELETED);
+                        Toast.makeText(getContext(),mContext.getString(R.string.reminderDeleted),Toast.LENGTH_SHORT).show();
                         break;
                     case PillReminder.STATE_DELETED:
                         db.deletePillReminder(card_pillReminder_id);
+                        Toast.makeText(getContext(),mContext.getString(R.string.reminderRemoved),Toast.LENGTH_SHORT).show();
                         break;
                 }
                 db.closeDB();
