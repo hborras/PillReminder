@@ -20,6 +20,8 @@ import com.plaglabs.pillreminder.app.R;
 import com.plaglabs.pillreminder.app.Utils.DialogConfirmation;
 import com.plaglabs.pillreminder.app.Utils.DialogDate;
 
+import java.util.Calendar;
+
 import SQLite.Model.PillReminder;
 
 /**
@@ -121,7 +123,6 @@ public class TypeSelectFragment extends Fragment {
                     if(rbHours.isChecked()){
                         fragment = new EveryHoursFragment(pillReminder);
                     } else {
-                        //fragment = new DaysMealsFragment();
                         fragment = new EveryHoursFragment(pillReminder);
                     }
 
@@ -156,7 +157,42 @@ public class TypeSelectFragment extends Fragment {
         boolean next = false;
 
         if(tvDateStartHasDate && tvDateFinishHasDate && !etDescription.getText().toString().trim().equalsIgnoreCase("")){
-            next = true;
+
+            int yearStart,yearFinish;
+            int monthStart,monthFinish;
+            int dayStart,dayFinish;
+
+            String dateStart = tvDateStart.getText().toString();
+
+            yearStart = Integer.parseInt(dateStart.substring(6,10));
+            monthStart = Integer.parseInt(dateStart.substring(3,5)) - 1;
+            dayStart = Integer.parseInt(dateStart.substring(0,2));
+
+            String dateFinish = tvDateFinish.getText().toString();
+
+            yearFinish = Integer.parseInt(dateFinish.substring(6,10));
+            monthFinish = Integer.parseInt(dateFinish.substring(3,5)) - 1;
+            dayFinish = Integer.parseInt(dateFinish.substring(0,2));
+
+            Calendar cStart = Calendar.getInstance(), cFinish = Calendar.getInstance();
+
+            cStart.set(Calendar.YEAR,yearStart);
+            cStart.set(Calendar.MONTH,monthStart);
+            cStart.set(Calendar.DAY_OF_MONTH,dayStart);
+            cStart.set(Calendar.HOUR_OF_DAY,0);
+            cStart.set(Calendar.MINUTE,0);
+            cStart.set(Calendar.SECOND,0);
+
+            cFinish.set(Calendar.YEAR,yearFinish);
+            cFinish.set(Calendar.MONTH,monthFinish);
+            cFinish.set(Calendar.DAY_OF_MONTH,dayFinish);
+            cFinish.set(Calendar.HOUR_OF_DAY,0);
+            cFinish.set(Calendar.MINUTE,0);
+            cFinish.set(Calendar.SECOND,0);
+
+            if(cFinish.getTimeInMillis()  > cStart.getTimeInMillis()){
+                next = true;
+            }
         }
 
 

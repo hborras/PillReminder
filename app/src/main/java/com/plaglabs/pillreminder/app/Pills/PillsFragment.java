@@ -32,7 +32,6 @@ public class PillsFragment extends Fragment {
     PillReminderDBHelper db;
     CardListView mPillsList;
     CardArrayAdapter mCardArrayAdapter;
-    private UndoBarController mUndoBarController;
     int position = -1;
     ActionMode mActionMode;
 

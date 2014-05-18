@@ -4,7 +4,6 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
-import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,27 +15,19 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.plaglabs.pillreminder.app.AlarmScheduler;
 import com.plaglabs.pillreminder.app.R;
-import com.plaglabs.pillreminder.app.Utils.DialogConfirmation;
 import com.plaglabs.pillreminder.app.Utils.DialogDate;
 import com.plaglabs.pillreminder.app.Utils.DialogHour;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Calendar;
 
 import SQLite.Database.PillReminderDBHelper;
 import SQLite.Model.PillReminder;
 import SQLite.Model.Pill_PillReminder;
-import it.gmariotti.cardslib.library.internal.Card;
-import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
-import it.gmariotti.cardslib.library.internal.CardHeader;
-import it.gmariotti.cardslib.library.view.CardListView;
 
-/**
- * Created by plagueis on 10/05/14.
- */
 public class PillReminderFragment extends Fragment {
 
     Pill_PillReminder mPillPillReminder;
@@ -157,6 +148,8 @@ public class PillReminderFragment extends Fragment {
                             .replace(R.id.content_frame, fragment)
                             .addToBackStack("pills2")
                             .commit();
+                } else {
+                    Toast.makeText(getActivity(),getResources().getString(R.string.errorSave),Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.action_archive_pill_reminder:
@@ -194,14 +187,51 @@ public class PillReminderFragment extends Fragment {
     }
 
     private boolean checkPill() {
-        return !etEveryHours.getText().toString().trim().equalsIgnoreCase("") || !etDescription.getText().toString().trim().equalsIgnoreCase("");
+        boolean error = false;
+        int yearStart,yearFinish;
+        int monthStart,monthFinish;
+        int dayStart,dayFinish;
+
+        String dateStart = tvDateStart.getText().toString();
+
+        yearStart = Integer.parseInt(dateStart.substring(6,10));
+        monthStart = Integer.parseInt(dateStart.substring(3,5)) - 1;
+        dayStart = Integer.parseInt(dateStart.substring(0,2));
+
+        String dateFinish = tvDateFinish.getText().toString();
+
+        yearFinish = Integer.parseInt(dateFinish.substring(6,10));
+        monthFinish = Integer.parseInt(dateFinish.substring(3,5)) - 1;
+        dayFinish = Integer.parseInt(dateFinish.substring(0,2));
+
+        Calendar cStart = Calendar.getInstance(), cFinish = Calendar.getInstance();
+
+        cStart.set(Calendar.YEAR,yearStart);
+        cStart.set(Calendar.MONTH,monthStart);
+        cStart.set(Calendar.DAY_OF_MONTH,dayStart);
+        cStart.set(Calendar.HOUR_OF_DAY,0);
+        cStart.set(Calendar.MINUTE,0);
+        cStart.set(Calendar.SECOND,0);
+
+        cFinish.set(Calendar.YEAR,yearFinish);
+        cFinish.set(Calendar.MONTH,monthFinish);
+        cFinish.set(Calendar.DAY_OF_MONTH,dayFinish);
+        cFinish.set(Calendar.HOUR_OF_DAY,0);
+        cFinish.set(Calendar.MINUTE,0);
+        cFinish.set(Calendar.SECOND,0);
+        if(!etEveryHours.getText().toString().trim().equalsIgnoreCase("") && !etDescription.getText().toString().trim().equalsIgnoreCase("")){
+            error = true;
+        }
+        if(cFinish.getTimeInMillis()  > cStart.getTimeInMillis()){
+            error = true;
+        }
+        return error;
     }
 
     private void savePill() {
         mPillPillReminder.getPillReminder().setMhourStart(tvHourStart.getText().toString());
         mPillPillReminder.getPillReminder().setmDateStart(tvDateStart.getText().toString());
         mPillPillReminder.getPillReminder().setmDateFinish(tvDateFinish.getText().toString());
-        mPillPillReminder.getPillReminder().setMhourStart(tvHourStart.getText().toString());
         mPillPillReminder.getPillReminder().setmEveryHours(Integer.parseInt(etEveryHours.getText().toString()));
         mPillPillReminder.getPillReminder().setmDescription(etDescription.getText().toString());
 

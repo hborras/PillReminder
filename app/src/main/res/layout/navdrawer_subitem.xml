@@ -24,8 +24,7 @@
         android:layout_toRightOf="@id/linear_navmenusubitem_icon"
         android:gravity="center_vertical"
         android:textSize="16sp"
-        android:textStyle="italic"
-        android:text="Esto es una prueba"/>
+        android:textStyle="italic"/>
     <View android:layout_height="1dp" android:layout_width="fill_parent" android:background="#000000"/>
 
 </RelativeLayout>

@@ -10,7 +10,7 @@
         android:id="@+id/title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Select the Hours"
+        android:text="@string/selectHours"
         android:textSize="22sp"
         android:gravity="center"
         android:layout_alignParentTop="true"
@@ -27,7 +27,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Every hours: "
+            android:text="@string/everyHours"
             android:textSize="20sp"
             android:layout_weight="1"/>
         <EditText
@@ -51,16 +51,14 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Hour Start"
+            android:text="@string/hourStart"
             android:textSize="20sp"
-            android:layout_weight="1"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_weight="1"/>
 
         <TextView
             android:id="@+id/tvHourStart"
             android:layout_width="0dp"
-            android:text="Select the Hour"
+            android:text="@string/selectHour"
             android:textSize="20sp"
             android:textStyle="italic"
             android:layout_height="wrap_content"
@@ -78,14 +76,14 @@
             android:id="@+id/btnCancel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Cancel"
+            android:text="@string/btn_new_pill_cancel"
             android:textSize="20sp"
-            android:layout_weight="1" />
+            android:layout_weight="1"/>
 
         <Button
             android:id="@+id/btnSave"
             android:layout_width="0dp"
-            android:text="Save"
+            android:text="@string/btn_next"
             android:textSize="20sp"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>

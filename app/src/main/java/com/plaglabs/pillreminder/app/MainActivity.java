@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.Toast;
 
 import com.plaglabs.pillreminder.app.PillReminder.PillSelectFragment;
@@ -19,6 +20,8 @@ import SQLite.Model.PillReminder;
 
 public class MainActivity extends AbstractNavDrawerActivity {
     public static final int DEBUG = 0;
+    private static final int TIME_INTERVAL = 2000;
+    private long mBackPressed;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -99,13 +102,28 @@ public class MainActivity extends AbstractNavDrawerActivity {
             case 201:
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/html");
-                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"feedback@pillreminder.com"});
-                intent.putExtra(Intent.EXTRA_SUBJECT, "Subject");
-                intent.putExtra(Intent.EXTRA_TEXT, "I'm email body.");
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"hborrasaleixandre@gmail.com"});
+                intent.putExtra(Intent.EXTRA_SUBJECT, "FeedBack");
+                intent.putExtra(Intent.EXTRA_TEXT, "");
                 startActivity(intent);
-                break;            case 202:
+                break;
+            case 202:
                 break;
 
         }
     }
+
+    @Override
+    public void onBackPressed()
+    {
+        if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis())
+        {
+            super.onBackPressed();
+            return;
+        }
+        else { Toast.makeText(getBaseContext(), R.string.exit, Toast.LENGTH_SHORT).show(); }
+
+        mBackPressed = System.currentTimeMillis();
+    }
+
 }

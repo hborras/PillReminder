@@ -97,7 +97,7 @@ public class EveryHoursFragment extends Fragment {
                             .addToBackStack("new")
                             .commit();
                 } else {
-                    Toast.makeText(getActivity(),"You must select the frequency of your pill and the start hour",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),getResources().getString(R.string.selectPillAndStartHour),Toast.LENGTH_SHORT).show();
                 }
             }
         });

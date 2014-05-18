@@ -18,16 +18,6 @@ import java.util.GregorianCalendar;
 public class AlarmScheduler {
 
     public void scheduleAlarm(Context context,int reminderId, int year, int month, int day, int hour, int minute, int every_hours){
-        // time at which alarm will be scheduled here alarm is scheduled at 1 day from current time,
-        // we fetch  the current time in milliseconds and added 1 day time
-        // i.e. 24*60*60*1000= 86,400,000   milliseconds in a day
-        Long time = new GregorianCalendar().getTimeInMillis()+5*1000;
-
-        // create an Intent and set the class which will execute when Alarm triggers, here we have
-        // given AlarmReciever in the Intent, the onRecieve() method of this class will execute when
-        // alarm triggers and
-        //we will write the code to send SMS inside onRecieve() method pf Alarmreciever class
-        Log.e("Alarm",String.valueOf(reminderId));
         Intent intentAlarm = new Intent(context, AlarmReciever.class);
 
         // create the object
@@ -52,13 +42,14 @@ public class AlarmScheduler {
         while (calendar.getTimeInMillis()< calendarNow.getTimeInMillis()){
             calendar.add(Calendar.MINUTE,every_hours);
         }
-
-     /*   Log.e("Alarm",String.valueOf(year));
-        Log.e("Alarm",String.valueOf(month));
-        Log.e("Alarm",String.valueOf(day));
-        Log.e("Alarm",String.valueOf(hour));
-        Log.e("Alarm",String.valueOf(minute));
-        Log.e("Alarm",String.valueOf(every_hours));*/
+        if(MainActivity.DEBUG>0) {
+            Log.e("Alarm", String.valueOf(year));
+            Log.e("Alarm", String.valueOf(month));
+            Log.e("Alarm", String.valueOf(day));
+            Log.e("Alarm", String.valueOf(hour));
+            Log.e("Alarm", String.valueOf(minute));
+            Log.e("Alarm", String.valueOf(every_hours));
+        }
         //set the alarm for particular time
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                 every_hours * 1000 * 60 , alarmIntent);

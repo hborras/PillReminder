@@ -157,14 +157,14 @@ public class PillReminder {
     }
 
     public void LogPillReminder(){
-        Log.e(LOG, "Id: " + this.mId);
-        Log.e(LOG,"Name: "       + this.mPillId);
-        Log.e(LOG,"Image: "      + this.mMealId);
-        Log.e(LOG,"Created At: " + this.mDayId);
-        Log.e(LOG,"Created At: " + this.mDateStart);
-        Log.e(LOG,"Created At: " + this.mDateFinish);
-        Log.e(LOG,"Created At: " + this.mReminderId);
-        Log.e(LOG,"Created At: " + this.mDescription);
-        Log.e(LOG,"Created At: " + this.mStatus);
+        Log.e(LOG,"Id: "          + this.mId);
+        Log.e(LOG,"Name: "        + this.mPillId);
+        Log.e(LOG,"Image: "       + this.mMealId);
+        Log.e(LOG,"Day Id: "      + this.mDayId);
+        Log.e(LOG,"Date Start: "  + this.mDateStart);
+        Log.e(LOG,"Date Finish: " + this.mDateFinish);
+        Log.e(LOG,"Reminder ID: " + this.mReminderId);
+        Log.e(LOG,"Description: " + this.mDescription);
+        Log.e(LOG,"Status: "      + this.mStatus);
     }
 }

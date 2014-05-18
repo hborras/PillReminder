@@ -141,7 +141,9 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
         String selectQuery = "SELECT  * FROM " + TABLE_PILL + " WHERE "
                 + KEY_ID + " = " + pill_id;
 
-        Log.e(LOG, selectQuery);
+        if(MainActivity.DEBUG>0) {
+            Log.e(LOG, selectQuery);
+        }
 
         Cursor c = db.rawQuery(selectQuery, null);
         Pill pill = new Pill();
@@ -161,7 +163,10 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
     public List<Pill> getAllPills(){
         List<Pill> pills = new ArrayList<Pill>();
         String selectQuery = "SELECT  * FROM " + TABLE_PILL;
-        Log.e(LOG, selectQuery);
+
+        if(MainActivity.DEBUG>0) {
+            Log.e(LOG, selectQuery);
+        }
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
@@ -244,7 +249,9 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
         String selectQuery = "SELECT  * FROM " + TABLE_DAY + " WHERE "
                 + KEY_ID + " = " + day_id;
 
-        Log.e(LOG, selectQuery);
+        if(MainActivity.DEBUG>0) {
+            Log.e(LOG, selectQuery);
+        }
 
         Cursor c = db.rawQuery(selectQuery, null);
         Day day = new Day();
@@ -262,7 +269,10 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
     public List<Day> getAllDays(){
         List<Day> days = new ArrayList<Day>();
         String selectQuery = "SELECT  * FROM " + TABLE_DAY;
-        Log.e(LOG, selectQuery);
+
+        if(MainActivity.DEBUG>0) {
+            Log.e(LOG, selectQuery);
+        }
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
@@ -328,7 +338,9 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
         String selectQuery = "SELECT  * FROM " + TABLE_MEAL + " WHERE "
                 + KEY_ID + " = " + meal_id;
 
-        Log.e(LOG, selectQuery);
+        if(MainActivity.DEBUG>0) {
+            Log.e(LOG, selectQuery);
+        }
 
         Cursor c = db.rawQuery(selectQuery, null);
         Meal meal = new Meal();
@@ -346,7 +358,10 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
     public List<Meal> getAllMeals(){
         List<Meal> meals = new ArrayList<Meal>();
         String selectQuery = "SELECT  * FROM " + TABLE_MEAL;
-        Log.e(LOG, selectQuery);
+
+        if(MainActivity.DEBUG>0) {
+            Log.e(LOG, selectQuery);
+        }
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
@@ -434,8 +449,8 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
         values.put(KEY_PILL_REMINDER_HOURSTART,pillReminder.getMhourStart());
 
         // updating row
-        return db.update(TABLE_PILL_REMINDER, values, KEY_ID + " = ?",
-                new String[] { String.valueOf(pillReminder.getmId()) });
+        return db.update(TABLE_PILL_REMINDER, values, KEY_REMINDER_ID + " = ?",
+                new String[] { String.valueOf(pillReminder.getmReminderId()) });
     }
 
     public int updatePillReminderState(int reminderId, int status){
@@ -455,7 +470,10 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
             selectQuery = selectQuery + " AND " + KEY_PILL_REMINDER_STATUS + "="
                                         + status_id;
         }
-        Log.e(LOG, selectQuery);
+
+        if(MainActivity.DEBUG>0) {
+            Log.e(LOG, selectQuery);
+        }
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
@@ -501,8 +519,9 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
                 + " FROM " + TABLE_PILL_REMINDER + " LEFT JOIN " + TABLE_PILL
                 + " ON "+ TABLE_PILL + "." + KEY_ID + " = " + TABLE_PILL_REMINDER + "." + KEY_PILL_REMINDER_PILL_ID
                 + " WHERE "+ TABLE_PILL_REMINDER+ "." + KEY_PILL_REMINDER_STATUS + "=" + status_id;
-        Log.e(LOG, selectQuery);
-
+        if(MainActivity.DEBUG>0) {
+            Log.e(LOG, selectQuery);
+        }
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
         if (c.moveToFirst()) {
@@ -517,6 +536,7 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
 
 
                 PillReminder pillReminder = new PillReminder();
+                pillReminder.setmPillId(c.getInt(c.getColumnIndex(TABLE_PILL + KEY_ID)));
                 pillReminder.setmReminderId(c.getInt(c.getColumnIndex(TABLE_PILL_REMINDER + KEY_REMINDER_ID)));
                 pillReminder.setmStatus(c.getInt(c.getColumnIndex(TABLE_PILL_REMINDER + KEY_PILL_REMINDER_STATUS)));
                 pillReminder.setmEveryHours(c.getInt(c.getColumnIndex(TABLE_PILL_REMINDER + KEY_PILL_REMINDER_EVERY_HOURS)));
@@ -555,7 +575,11 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
                 + " FROM " + TABLE_PILL_REMINDER + " LEFT JOIN " + TABLE_PILL
                 + " ON "+ TABLE_PILL + "." + KEY_ID + " = " + TABLE_PILL_REMINDER + "." + KEY_PILL_REMINDER_PILL_ID
                 + " WHERE "+ TABLE_PILL_REMINDER+ "." + KEY_REMINDER_ID + "=" + reminderId;
-        Log.e(LOG, selectQuery);
+
+        if(MainActivity.DEBUG>0) {
+            Log.e(LOG, selectQuery);
+        }
+
         Pill_PillReminder pillPillReminder = new Pill_PillReminder();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
@@ -570,6 +594,7 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
 
 
                 PillReminder pillReminder = new PillReminder();
+                pillReminder.setmPillId(c.getInt(c.getColumnIndex(TABLE_PILL + KEY_ID)));
                 pillReminder.setmReminderId(c.getInt(c.getColumnIndex(TABLE_PILL_REMINDER + KEY_REMINDER_ID)));
                 pillReminder.setmStatus(c.getInt(c.getColumnIndex(TABLE_PILL_REMINDER + KEY_PILL_REMINDER_STATUS)));
                 pillReminder.setmEveryHours(c.getInt(c.getColumnIndex(TABLE_PILL_REMINDER + KEY_PILL_REMINDER_EVERY_HOURS)));
@@ -594,7 +619,10 @@ public class PillReminderDBHelper extends SQLiteOpenHelper {
         int reminderId = 0;
         String selectQuery = "SELECT max(" + KEY_REMINDER_ID + ") as maxReminderId"
                              + " FROM " + TABLE_PILL_REMINDER;
-        Log.e(LOG, selectQuery);
+
+        if(MainActivity.DEBUG>0) {
+            Log.e(LOG, selectQuery);
+        }
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);

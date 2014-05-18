@@ -13,9 +13,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-/**
- * Created by plagueis on 30/04/14.
- */
 public abstract class AbstractNavDrawerActivity extends FragmentActivity {
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;

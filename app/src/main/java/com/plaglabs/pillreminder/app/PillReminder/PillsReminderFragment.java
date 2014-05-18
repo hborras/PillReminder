@@ -2,7 +2,6 @@ package com.plaglabs.pillreminder.app.PillReminder;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -12,8 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.plaglabs.pillreminder.app.AlarmScheduler;
-import com.plaglabs.pillreminder.app.Pills.NewPillFragment;
-import com.plaglabs.pillreminder.app.Pills.PillCard;
 import com.plaglabs.pillreminder.app.R;
 import com.plaglabs.pillreminder.app.Utils.DialogConfirmation;
 
@@ -21,18 +18,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import SQLite.Database.PillReminderDBHelper;
-import SQLite.Model.Pill;
 import SQLite.Model.PillReminder;
 import SQLite.Model.Pill_PillReminder;
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
 import it.gmariotti.cardslib.library.internal.CardHeader;
 import it.gmariotti.cardslib.library.view.CardListView;
-import it.gmariotti.cardslib.library.view.listener.UndoBarController;
 
-/**
- * Created by plagueis on 10/05/14.
- */
 public class PillsReminderFragment extends Fragment {
 
     List<Pill_PillReminder> mPills;
@@ -85,7 +77,7 @@ public class PillsReminderFragment extends Fragment {
 
             card.setResourceIdThumbnail(pillPillReminder.getPill().getmImage());
             card.setTitle(pillPillReminder.getPillReminder().getmDescription());
-            card.setSecondaryTitle("Dates: " + pillPillReminder.getPillReminder().getmDateStart()
+            card.setSecondaryTitle(getResources().getString(R.string.dates)+ pillPillReminder.getPillReminder().getmDateStart()
             + " - " + pillPillReminder.getPillReminder().getmDateFinish());
             card.setStartEvery(getResources().getQuantityString(R.plurals.hours,pillPillReminder.getPillReminder().getmEveryHours(),pillPillReminder.getPillReminder().getmEveryHours()));
             card.init();
@@ -127,8 +119,6 @@ public class PillsReminderFragment extends Fragment {
             cards.add(card);
         }
         mCardArrayAdapter = new CardArrayAdapter(getActivity(), cards);
-
-        mCardArrayAdapter.setEnableUndo(true);
 
         if (mPillsList!=null){
             mPillsList.setAdapter(mCardArrayAdapter);
