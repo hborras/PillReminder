@@ -35,7 +35,6 @@ public class AlarmScheduler {
         PendingIntent alarmIntent = PendingIntent.getBroadcast(context,reminderId,intentAlarm,0);
         intentAlarm.putExtra("reminderId",reminderId);
 
-
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.YEAR,year);
