@@ -1,8 +1,6 @@
 package SQLite.Model;
 
-/**
- * Created by plagueis on 7/05/14.
- */
+// UNUSED
 public class Day {
 
     private int mId;

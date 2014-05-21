@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-    <color name="purple_light">#a276eb</color>
+    <color name="blue_light">#ff8debeb</color>
     <color name="purple_middle">#8658ce</color>
     <color name="purple_dark">#6a3ab2</color>
     <color name="navigation_drawer_background">#e5e5e5</color>
     <color name="actionbar_background">#33B5E5</color>
-    <color name="navigation_drawer_section">#0099CC</color>
+    <color name="navigation_drawer_section">#ff29abe5</color>
     <color name="navigation_drawer_navitem_background">#fff</color>
     <color name="divider">#bbbbbb</color>
     <color name="navigation_drawer_navitem">#777</color>
-    <color name="navigation_drawer_navitem_selected">#fff</color>
+    <color name="navigation_drawer_navitem_selected">#ff000000</color>
 </resources>

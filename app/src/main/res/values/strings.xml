@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name">PillReminder</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -13,17 +12,6 @@
     <string name="navdrawer_item_feedback">Feedback</string>
     <string name="navdrawer_item_help">Help</string>
 
-    <string-array name="planets_array">
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
-    </string-array>
-
     <string name="action_websearch">Web search</string>
     <string name="app_not_available">Sorry, there\'s no web browser available</string>
     <string name="title_activity_main_activity2">MainActivity2Activity</string>
@@ -32,8 +20,8 @@
     <string name="others">Others</string>
     <string name="btn_new_pill_save">Save</string>
     <string name="btn_new_pill_cancel">Cancel</string>
-    <string name="txt_new_pill_name">Write the name for the Pill</string>
-    <string name="txt_new_pill_picture">Select the Picture for the Pill</string>
+    <string name="txt_new_pill_name">Write Pill\'s name</string>
+    <string name="txt_new_pill_picture">Select Pill\'s Picture</string>
     <string name="menu_action_addPill">Add Pill</string>
     <string name="new_pill_error_text">You can\'t create a new pill without no name</string>
     <string name="navdrawer_item_nextpills">Next Pills</string>
@@ -46,4 +34,37 @@
     <string name="positive_button">Yes</string>
     <string name="negative_button">No</string>
     <string name="type_select_date">You must select a valid date start, a valid date finish and a description</string>
+    <string name="menu_action_view_pill_reminder">View Pill Reminder</string>
+    <string name="menu_action_archive_pill_reminder">Archive Pill Reminder</string>
+    <string name="menu_action_restore_pill_reminder">Restore Pill Reminder</string>
+    <string name="menu_action_delete_pill_reminder">Delete Pill Reminder</string>
+    <string name="menu_action_add_pill_reminder">Add Pill Reminder</string>
+    <string name="menu_action_settings">Settings</string>
+    <string name="menu_action_save_pill_reminder">Save Pill Reminder</string>
+    <string name="dates">Dates:</string>
+    <string name="exit">Tap back button in order to exit</string>
+    <string name="image">Pill\'s Image</string>
+    <string name="selectHours">Select Hours</string>
+    <string name="everyHours">Every hours: </string>
+    <string name="hourStart">Hour Start</string>
+    <string name="selectHour">Select Hour</string>
+    <string name="btn_next">Next</string>
+    <string name="finishDate">Finish Date</string>
+    <string name="startDate">Start Date</string>
+    <string name="selectPill">Select Pill</string>
+    <string name="selectType">Select Type</string>
+    <string name="description">Description</string>
+    <string name="byhours">By Hours</string>
+    <string name="bydaysandmeals">By Days and Meals</string>
+    <string name="selectDate">Select Date</string>
+    <string name="lastAlarm">This was the last alarm, because the finish date has passed</string>
+    <string name="selectPillAndStartHour">You must select  frequency of your pill and  start hour</string>
+    <string name="errorSave">You must fill  description name and every hours\' field. Also you can\'t select a finish date before start date</string>
+    <string name="reminderArchived">Reminder Archived</string>
+    <string name="reminderDeleted">Reminder Deleted</string>
+    <string name="reminderRemoved">Reminder Removed</string>
+    <plurals name="hours">
+        <item quantity="one">Every: 1 Hour</item>
+        <item quantity="other">Every: %d  Hours</item>
+    </plurals>
 </resources>

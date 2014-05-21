@@ -1,10 +1,15 @@
 package com.plaglabs.pillreminder.app.PillReminder;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.plaglabs.pillreminder.app.AlarmReciever;
 import com.plaglabs.pillreminder.app.R;
 
 import SQLite.Database.PillReminderDBHelper;
@@ -18,6 +23,7 @@ import it.gmariotti.cardslib.library.internal.CardThumbnail;
 public class PillReminderCard extends Card {
     protected TextView mTitle;
     protected TextView mSecondaryTitle;
+    protected TextView mStartEvery;
     protected int resourceIdThumbnail;
     protected int card_pillReminder_id;
 
@@ -33,6 +39,24 @@ public class PillReminderCard extends Card {
 
     protected String title;
     protected String secondaryTitle;
+    protected String startEvery;
+    protected String dayStartFinish;
+
+    public String getDayStartFinish() {
+        return dayStartFinish;
+    }
+
+    public void setDayStartFinish(String dayStartFinish) {
+        this.dayStartFinish = dayStartFinish;
+    }
+
+    public String getStartEvery() {
+        return startEvery;
+    }
+
+    public void setStartEvery(String startEvery) {
+        this.startEvery = startEvery;
+    }
 
     public PillReminderCard(Context context) {
         this(context, R.layout.pill_reminder_card);
@@ -64,12 +88,16 @@ public class PillReminderCard extends Card {
                 switch (card_pillReminder_status){
                     case PillReminder.STATE_ACTIVE:
                         db.updatePillReminderState(card_pillReminder_id, PillReminder.STATE_ARCHIVE);
+                        unableAlarm(card_pillReminder_id);
+                        Toast.makeText(getContext(),mContext.getString(R.string.reminderArchived),Toast.LENGTH_SHORT).show();
                         break;
                     case PillReminder.STATE_ARCHIVE:
                         db.updatePillReminderState(card_pillReminder_id, PillReminder.STATE_DELETED);
+                        Toast.makeText(getContext(),mContext.getString(R.string.reminderDeleted),Toast.LENGTH_SHORT).show();
                         break;
                     case PillReminder.STATE_DELETED:
                         db.deletePillReminder(card_pillReminder_id);
+                        Toast.makeText(getContext(),mContext.getString(R.string.reminderRemoved),Toast.LENGTH_SHORT).show();
                         break;
                 }
                 db.closeDB();
@@ -78,18 +106,30 @@ public class PillReminderCard extends Card {
 
     }
 
+    private void unableAlarm(int card_pillReminder_id) {
+        Intent intentAlarm = new Intent(mContext, AlarmReciever.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(mContext,card_pillReminder_id, intentAlarm, 0);
+        AlarmManager alarmManager = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.cancel(pendingIntent);
+    }
+
     @Override
     public void setupInnerViewElements(ViewGroup parent, View view) {
 
         //Retrieve elements
         mTitle = (TextView) parent.findViewById(R.id.card_title);
         mSecondaryTitle = (TextView) parent.findViewById(R.id.card_secondaryTitle);
-
+        mStartEvery = (TextView) parent.findViewById(R.id.startEvery);
         if (mTitle != null)
             mTitle.setText(title);
 
         if (mSecondaryTitle != null)
             mSecondaryTitle.setText(secondaryTitle);
+
+        if(mStartEvery !=null){
+            mStartEvery.setText(startEvery);
+        }
+
     }
 
 

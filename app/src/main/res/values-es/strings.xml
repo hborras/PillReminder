@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Pill Reminder</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Configuración</string>
+
+    <string name="navdrawer_item_activepills">Pastillas Activas</string>
+    <string name="navdrawer_item_pills">Pastillas</string>
+    <string name="navdrawer_item_archived">Archivadas</string>
+    <string name="navdrawer_item_deleted">Borradas</string>
+
+    <string name="navdrawer_item_feedback">Feedback</string>
+    <string name="navdrawer_item_help">Ayuda</string>
+
+    <string name="drawer_open">Abrir Navigation Drawer</string>
+    <string name="drawer_close">Cerrar Navigation Drawer</string>
+    <string name="others">Otros</string>
+    <string name="btn_new_pill_save">Guardar</string>
+    <string name="btn_new_pill_cancel">Cancelar</string>
+    <string name="txt_new_pill_name">Escribe el nombre para la pastilla</string>
+    <string name="txt_new_pill_picture">Selecciona la imagen para la pastilla</string>
+    <string name="menu_action_addPill">Añadir Pastilla</string>
+    <string name="new_pill_error_text">No puedes crear una pastilla sin nombre.</string>
+    <string name="navdrawer_item_nextpills">Siguientes Pastillas</string>
+    <string name="menu_action_deletePill">Borrar Pastilla</string>
+    <string name="dialog_remove_pill">¿Quieres borrar esta pastilla?</string>
+    <string name="dialog_remove_pill_title">Borrar pastilla</string>
+    <string name="dialog_remove_pill_message">¿Quieres borrar esta pastilla? Si la borras se borrarán  también todos los recordatorios relacionados</string>
+    <string name="dialog_remove_pill_reminder_title">Borrar Pill Reminder</string>
+    <string name="dialog_remove_pill_reminder_message">¿Quieres borrar este Pill Reminder?</string>
+    <string name="positive_button">Si</string>
+    <string name="negative_button">No</string>
+    <string name="type_select_date">Tienes que seleccionar una fecha válida de inicio, de final y una descripción</string>
+    <string name="menu_action_view_pill_reminder">Ver Pill Reminder</string>
+    <string name="menu_action_archive_pill_reminder">Archivar Pill Reminder</string>
+    <string name="menu_action_restore_pill_reminder">Restaurar Pill Reminder</string>
+    <string name="menu_action_delete_pill_reminder">Borrar Pill Reminder</string>
+    <string name="menu_action_add_pill_reminder">Añadir Pill Reminder</string>
+    <string name="menu_action_settings">Configuración</string>
+    <string name="menu_action_save_pill_reminder">Guardar Pill Reminder</string>
+    <string name="dates">Fechas:</string>
+    <string name="exit">Apreta otra vez el botón del volver para salir</string>
+    <string name="image">Imagen de pastilla</string>
+    <string name="selectHours">Selecciona las horas</string>
+    <string name="everyHours">Cada X Horas: </string>
+    <string name="hourStart">Hora Inicio</string>
+    <string name="selectHour">Selecciona la hora</string>
+    <string name="btn_next">Siguiente</string>
+    <string name="finishDate">Fecha Fin</string>
+    <string name="startDate">Fecha Inicio</string>
+    <string name="selectPill">Selecciona la Pastilla</string>
+    <string name="selectType">Selecciona el tipo</string>
+    <string name="description">Descripción</string>
+    <string name="byhours">Por Horas</string>
+    <string name="bydaysandmeals">Por dias y comidas</string>
+    <string name="selectDate">Selecciona la fecha</string>
+    <string name="lastAlarm">Esta es la última alarma, porque la fecha final ha pasado</string>
+    <string name="selectPillAndStartHour">Debes seleccionar la frecuencia de toma y la hora de inicio</string>
+    <string name="errorSave">Debes rellenar la descripción y el campo "Cada horas", además no puedes seleccionar una fecha de final anterior a la fecha de inicio</string>
+    <plurals name="hours">
+        <item quantity="one">Cada: 1 Hora</item>
+        <item quantity="other">Cada: %d  Horas</item>
+    </plurals>
+</resources>

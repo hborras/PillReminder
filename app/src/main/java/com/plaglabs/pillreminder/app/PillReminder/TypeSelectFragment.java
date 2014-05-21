@@ -20,7 +20,11 @@ import com.plaglabs.pillreminder.app.R;
 import com.plaglabs.pillreminder.app.Utils.DialogConfirmation;
 import com.plaglabs.pillreminder.app.Utils.DialogDate;
 
+import java.util.Calendar;
+
+import SQLite.Database.PillReminderDBHelper;
 import SQLite.Model.PillReminder;
+import SQLite.Model.Pill_PillReminder;
 
 /**
  * Created by plagueis on 11/05/14.
@@ -36,6 +40,14 @@ public class TypeSelectFragment extends Fragment {
     RadioButton rbHours, rbDays;
     EditText etDescription;
 
+    /*public static TypeSelectFragment newInstance(int pillReminderId) {
+        TypeSelectFragment frag = new TypeSelectFragment();
+        Bundle args = new Bundle();
+        args.putInt("pillReminderId", pillReminderId);
+        frag.setArguments(args);
+        return frag;
+    }*/
+
     public TypeSelectFragment() {
     }
 
@@ -44,25 +56,46 @@ public class TypeSelectFragment extends Fragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("pillId", pillReminder.getmPillId());
+        outState.putInt("status",pillReminder.getmStatus());
+        outState.putString("description",pillReminder.getmDescription());
+        outState.putString("dateStart",pillReminder.getmDateStart());
+        outState.putString("dateFinish",pillReminder.getmDateFinish());
+    }
 
-        if(!pillReminder.getmDescription().equalsIgnoreCase("")){
-            etDescription.setText(pillReminder.getmDescription());
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if(savedInstanceState !=null){
+            pillReminder = new PillReminder();
+            pillReminder.setmPillId(savedInstanceState.getInt("pillId"));
+            pillReminder.setmStatus(savedInstanceState.getInt("status"));
+            pillReminder.setmDescription(savedInstanceState.getString("description"));
+            pillReminder.setmDateStart(savedInstanceState.getString("dateStart"));
+            pillReminder.setmDateFinish(savedInstanceState.getString("dateFinish"));
         }
 
-        if(!pillReminder.getmDateStart().equalsIgnoreCase("")){
-            SpannableString spanString = new SpannableString(pillReminder.getmDateStart());
-            spanString.setSpan(new UnderlineSpan(), 0, spanString.length(), 0);
-            tvDateStart.setText(spanString);
-            tvDateStartHasDate = true;
-        }
+        if( pillReminder != null) {
+            if (!pillReminder.getmDescription().equalsIgnoreCase("")) {
+                etDescription.setText(pillReminder.getmDescription());
+            }
 
-        if(!pillReminder.getmDateFinish().equalsIgnoreCase("")){
-            SpannableString spanString2 = new SpannableString(pillReminder.getmDateFinish());
-            spanString2.setSpan(new UnderlineSpan(), 0, spanString2.length(), 0);
-            tvDateFinish.setText(spanString2);
-            tvDateFinishHasDate = true;
+            if (!pillReminder.getmDateStart().equalsIgnoreCase("")) {
+                SpannableString spanString = new SpannableString(pillReminder.getmDateStart());
+                spanString.setSpan(new UnderlineSpan(), 0, spanString.length(), 0);
+                tvDateStart.setText(spanString);
+                tvDateStartHasDate = true;
+            }
+
+            if (!pillReminder.getmDateFinish().equalsIgnoreCase("")) {
+                SpannableString spanString2 = new SpannableString(pillReminder.getmDateFinish());
+                spanString2.setSpan(new UnderlineSpan(), 0, spanString2.length(), 0);
+                tvDateFinish.setText(spanString2);
+                tvDateFinishHasDate = true;
+            }
         }
     }
 
@@ -75,6 +108,7 @@ public class TypeSelectFragment extends Fragment {
         rbHours = (RadioButton) view.findViewById(R.id.rbHours);
         rbHours.setChecked(true);
         rbDays = (RadioButton) view.findViewById(R.id.rbDays);
+        rbDays.setEnabled(false);
 
         tvDateStart = (TextView) view.findViewById(R.id.tvDateStart);
 
@@ -120,7 +154,7 @@ public class TypeSelectFragment extends Fragment {
                     if(rbHours.isChecked()){
                         fragment = new EveryHoursFragment(pillReminder);
                     } else {
-                        fragment = new DaysMealsFragment();
+                        fragment = new EveryHoursFragment(pillReminder);
                     }
 
                     getFragmentManager()
@@ -154,7 +188,42 @@ public class TypeSelectFragment extends Fragment {
         boolean next = false;
 
         if(tvDateStartHasDate && tvDateFinishHasDate && !etDescription.getText().toString().trim().equalsIgnoreCase("")){
-            next = true;
+
+            int yearStart,yearFinish;
+            int monthStart,monthFinish;
+            int dayStart,dayFinish;
+
+            String dateStart = tvDateStart.getText().toString();
+
+            yearStart = Integer.parseInt(dateStart.substring(6,10));
+            monthStart = Integer.parseInt(dateStart.substring(3,5)) - 1;
+            dayStart = Integer.parseInt(dateStart.substring(0,2));
+
+            String dateFinish = tvDateFinish.getText().toString();
+
+            yearFinish = Integer.parseInt(dateFinish.substring(6,10));
+            monthFinish = Integer.parseInt(dateFinish.substring(3,5)) - 1;
+            dayFinish = Integer.parseInt(dateFinish.substring(0,2));
+
+            Calendar cStart = Calendar.getInstance(), cFinish = Calendar.getInstance();
+
+            cStart.set(Calendar.YEAR,yearStart);
+            cStart.set(Calendar.MONTH,monthStart);
+            cStart.set(Calendar.DAY_OF_MONTH,dayStart);
+            cStart.set(Calendar.HOUR_OF_DAY,0);
+            cStart.set(Calendar.MINUTE,0);
+            cStart.set(Calendar.SECOND,0);
+
+            cFinish.set(Calendar.YEAR,yearFinish);
+            cFinish.set(Calendar.MONTH,monthFinish);
+            cFinish.set(Calendar.DAY_OF_MONTH,dayFinish);
+            cFinish.set(Calendar.HOUR_OF_DAY,0);
+            cFinish.set(Calendar.MINUTE,0);
+            cFinish.set(Calendar.SECOND,0);
+
+            if(cFinish.getTimeInMillis()  >= cStart.getTimeInMillis()){
+                next = true;
+            }
         }
 
 

@@ -5,24 +5,24 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_margin="10dp"
+        android:id="@+id/tvPill"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Hello world!!!!!"
-        android:id="@+id/textView"
-        android:layout_gravity="center_horizontal" />
+        android:textSize="22sp"
+        android:gravity="center" />
+
+    <TextView
+        android:layout_margin="10dp"
+        android:id="@+id/tvDescription"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="19sp"
+        android:gravity="center"/>
 
     <ImageView
         android:layout_width="wrap_content"
         android:id="@+id/imgPill"
-        android:layout_height="wrap_content"/>
-   <TextView
-       android:id="@+id/tvNombre"
-       android:layout_width="fill_parent"
-       android:layout_height="wrap_content" />
-
-    <Button
-        android:layout_width="fill_parent"
-        android:id="@+id/btnAcept"
-        android:text="ME LA TOMO!!!"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/image"/>
 </LinearLayout>

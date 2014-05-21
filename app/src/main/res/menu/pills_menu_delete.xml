@@ -1,8 +1,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.plaglabs.pillreminder.app.MainActivity" >
     <item android:id="@+id/action_deletePIll"
-        android:icon="@drawable/ic_action_camera"
+        android:icon="@drawable/ic_action_discard"
         android:title="@string/menu_action_deletePill"
-        android:showAsAction="ifRoom|withText" />
+        app:showAsAction="ifRoom|withText" />
+    <item android:id="@+id/action_settings"
+        android:title="@string/menu_action_settings"
+        android:enabled="false"
+        app:showAsAction="ifRoom|withText" />
 </menu>

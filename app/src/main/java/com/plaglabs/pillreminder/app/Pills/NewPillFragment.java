@@ -60,7 +60,7 @@ public class NewPillFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         DialogConfirmation dialogConfirmation = null;
         dialogConfirmation = DialogConfirmation.newInstance(R.string.dialog_remove_pill_title,
-                R.string.dialog_remove_pill_message, DialogConfirmation.DELETE_PILL,pill.getmId());
+                R.string.dialog_remove_pill_message, DialogConfirmation.DELETE_PILL,pill.getmId(),0);
         dialogConfirmation.show(getFragmentManager(), "dialog");
         return super.onOptionsItemSelected(item);
     }

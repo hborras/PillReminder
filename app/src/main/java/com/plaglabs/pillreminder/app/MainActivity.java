@@ -5,7 +5,9 @@ import android.app.Fragment;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.Toast;
 
 import com.plaglabs.pillreminder.app.PillReminder.PillSelectFragment;
@@ -19,6 +21,8 @@ import SQLite.Model.PillReminder;
 
 public class MainActivity extends AbstractNavDrawerActivity {
     public static final int DEBUG = 0;
+    private static final int TIME_INTERVAL = 2000;
+    private long mBackPressed;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,15 +42,13 @@ public class MainActivity extends AbstractNavDrawerActivity {
     protected NavDrawerActivityConfiguration getNavDrawerConfiguration() {
 
         NavDrawerItem[] menu = new NavDrawerItem[] {
-                NavMenuItem.create(101,getResources().getString(R.string.navdrawer_item_nextpills), R.drawable.action_search, true, this),
-                NavMenuItem.create(102,getResources().getString(R.string.navdrawer_item_activepills), R.drawable.action_search, true, this),
-                NavMenuItem.create(103,getResources().getString(R.string.navdrawer_item_pills), R.drawable.pill_red, true, this),
-                NavMenuItem.create(104,getResources().getString(R.string.navdrawer_item_archived),R.drawable.action_search, true, this),
-                NavMenuItem.create(105,getResources().getString(R.string.navdrawer_item_deleted),R.drawable.action_search, true, this),
+                NavMenuItem.create(101,getResources().getString(R.string.navdrawer_item_activepills), R.drawable.pill_green, true, this),
+                NavMenuItem.create(102,getResources().getString(R.string.navdrawer_item_pills), R.drawable.pill_red, true, this),
+                NavMenuItem.create(103,getResources().getString(R.string.navdrawer_item_archived),R.drawable.pill_blue, true, this),
+                NavMenuItem.create(104,getResources().getString(R.string.navdrawer_item_deleted),R.drawable.pill_grey, true, this),
                 NavMenuSection.create(200, getResources().getString(R.string.others)),
-                NavMenuItem.create(201, getResources().getString(R.string.navdrawer_item_feedback), R.drawable.action_search, true, this),
-                NavMenuItem.create(202, getResources().getString(R.string.navdrawer_item_help),R.drawable.ic_action_help , true, this)};
-
+                NavMenuItem.create(201, getResources().getString(R.string.navdrawer_item_feedback), R.drawable.ic_action_email_dark, true, this),
+                NavMenuItem.create(202, getResources().getString(R.string.navdrawer_item_help),R.drawable.ic_action_help_dark, true, this)};
         NavDrawerActivityConfiguration navDrawerActivityConfiguration = new NavDrawerActivityConfiguration();
         navDrawerActivityConfiguration.setMainLayout(R.layout.activity_main);
         navDrawerActivityConfiguration.setDrawerLayoutId(R.id.drawer_layout);
@@ -65,13 +67,6 @@ public class MainActivity extends AbstractNavDrawerActivity {
         Fragment fragment;
         switch (id) {
             case 101:
-                getFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.content_frame, new PillSelectFragment())
-                        .addToBackStack("pills2")
-                        .commit();
-                break;
-            case 102:
                 //PillsReminderFragment pillsReminderFragment = null;
                 fragment = PillsReminderFragment.newInstance(PillReminder.STATE_ACTIVE);
                 getFragmentManager()
@@ -80,7 +75,7 @@ public class MainActivity extends AbstractNavDrawerActivity {
                         .addToBackStack("pills2")
                         .commit();
                 break;
-            case 103:
+            case 102:
                 getFragmentManager()
                         .beginTransaction()
                         .replace(R.id.content_frame, new PillsFragment())
@@ -88,7 +83,7 @@ public class MainActivity extends AbstractNavDrawerActivity {
                         .commit();
                 break;
 
-            case 104:
+            case 103:
                 fragment = PillsReminderFragment.newInstance(PillReminder.STATE_ARCHIVE);
                 getFragmentManager()
                         .beginTransaction()
@@ -97,7 +92,7 @@ public class MainActivity extends AbstractNavDrawerActivity {
                         .commit();
                 break;
 
-            case 105:
+            case 104:
                 fragment = PillsReminderFragment.newInstance(PillReminder.STATE_DELETED);
                 getFragmentManager()
                         .beginTransaction()
@@ -108,15 +103,32 @@ public class MainActivity extends AbstractNavDrawerActivity {
             case 201:
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/html");
-                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"feedback@pillreminder.com"});
-                intent.putExtra(Intent.EXTRA_SUBJECT, "Subject");
-                intent.putExtra(Intent.EXTRA_TEXT, "I'm email body.");
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"hborrasaleixandre@gmail.com"});
+                intent.putExtra(Intent.EXTRA_SUBJECT, "FeedBack");
+                intent.putExtra(Intent.EXTRA_TEXT, "");
                 startActivity(intent);
                 break;
-
             case 202:
+                String url = "https://github.com/plagueis/PillReminder/tree/master#pillreminder";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
                 break;
 
         }
     }
+
+    @Override
+    public void onBackPressed()
+    {
+        if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis())
+        {
+            super.onBackPressed();
+            return;
+        }
+        else { Toast.makeText(getBaseContext(), R.string.exit, Toast.LENGTH_SHORT).show(); }
+
+        mBackPressed = System.currentTimeMillis();
+    }
+
 }

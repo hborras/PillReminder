@@ -19,8 +19,7 @@
             android:paddingRight="2dp"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_action_camera"/>
+            android:layout_gravity="center"/>
     </LinearLayout>
 
     <TextView
@@ -32,7 +31,6 @@
         android:gravity="center_vertical"
         android:textSize="20sp"
         android:textStyle="italic"
-        android:text="Esto es una prueba"
         android:textColor="@drawable/navdrawer_menuitemselector"/>
 
 </RelativeLayout>
