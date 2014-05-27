@@ -2,9 +2,6 @@ package SQLite.Model;
 
 import android.util.Log;
 
-/**
- * Created by plagueis on 7/05/14.
- */
 public class Pill {
 
     private static final String LOG =                               "PillModel";
@@ -21,12 +18,6 @@ public class Pill {
         this.mName = mName;
         this.mImage = mImage;
 
-    }
-
-    public Pill(int mId, String mName, int mImage) {
-        this.mId = mId;
-        this.mName = mName;
-        this.mImage = mImage;
     }
 
     public int getmId() {
@@ -51,10 +42,6 @@ public class Pill {
 
     public void setmImage(int mImage) {
         this.mImage = mImage;
-    }
-
-    public String getmCreatedAt() {
-        return mCreatedAt;
     }
 
     public void setmCreatedAt(String mCreatedAt) {
