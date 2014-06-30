@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.plaglabs.pillreminder.app.AlarmReciever;
+import com.plaglabs.pillreminder.app.Alarm.AlarmReciever;
 import com.plaglabs.pillreminder.app.R;
 
 import SQLite.Database.PillReminderDBHelper;

@@ -2,9 +2,6 @@ package SQLite.Model;
 
 import android.util.Log;
 
-/**
- * Created by plagueis on 7/05/14.
- */
 public class PillReminder {
     private static final String LOG =                               "PillReminderModel";
     public final static int STATE_NO_STATUS  = 0;

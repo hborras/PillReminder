@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.plaglabs.pillreminder.app.AlarmScheduler;
+import com.plaglabs.pillreminder.app.Alarm.AlarmScheduler;
 import com.plaglabs.pillreminder.app.R;
 import com.plaglabs.pillreminder.app.Utils.DialogHour;
 

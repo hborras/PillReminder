@@ -22,12 +22,12 @@
             </intent-filter>
         </activity>
         
-        <activity android:name=".AlarmActivity">
+        <activity android:name=".Alarm.AlarmActivity">
         </activity>
 
-        <receiver android:name="AlarmReciever">
+        <receiver android:name=".Alarm.AlarmReciever">
         </receiver>
-        <receiver android:name="AlarmBootReceiver"
+        <receiver android:name=".Alarm.AlarmBootReceiver"
             android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"></action>

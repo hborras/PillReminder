@@ -1,8 +1,5 @@
 package SQLite.Model;
 
-/**
- * Created by plagueis on 13/05/14.
- */
 public class Pill_PillReminder {
 
    private Pill pill;

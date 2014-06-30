@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.plaglabs.pillreminder.app.AlarmScheduler;
+import com.plaglabs.pillreminder.app.Alarm.AlarmScheduler;
 import com.plaglabs.pillreminder.app.R;
 import com.plaglabs.pillreminder.app.Utils.DialogConfirmation;
 

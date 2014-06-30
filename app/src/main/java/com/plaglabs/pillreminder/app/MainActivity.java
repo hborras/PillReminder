@@ -1,21 +1,19 @@
 package com.plaglabs.pillreminder.app;
 
-import android.app.AlarmManager;
 import android.app.Fragment;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.widget.Toast;
 
-import com.plaglabs.pillreminder.app.PillReminder.PillSelectFragment;
+import com.plaglabs.pillreminder.app.NavDrawer.AbstractNavDrawerActivity;
+import com.plaglabs.pillreminder.app.NavDrawer.NavDrawerActivityConfiguration;
+import com.plaglabs.pillreminder.app.NavDrawer.NavDrawerAdapter;
+import com.plaglabs.pillreminder.app.NavDrawer.NavDrawerItem;
+import com.plaglabs.pillreminder.app.NavDrawer.NavMenuItem;
+import com.plaglabs.pillreminder.app.NavDrawer.NavMenuSection;
 import com.plaglabs.pillreminder.app.PillReminder.PillsReminderFragment;
 import com.plaglabs.pillreminder.app.Pills.PillsFragment;
-
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 import SQLite.Model.PillReminder;
 
@@ -42,7 +40,7 @@ public class MainActivity extends AbstractNavDrawerActivity {
     protected NavDrawerActivityConfiguration getNavDrawerConfiguration() {
 
         NavDrawerItem[] menu = new NavDrawerItem[] {
-                NavMenuItem.create(101,getResources().getString(R.string.navdrawer_item_activepills), R.drawable.pill_green, true, this),
+                NavMenuItem.create(101, getResources().getString(R.string.navdrawer_item_activepills), R.drawable.pill_green, true, this),
                 NavMenuItem.create(102,getResources().getString(R.string.navdrawer_item_pills), R.drawable.pill_red, true, this),
                 NavMenuItem.create(103,getResources().getString(R.string.navdrawer_item_archived),R.drawable.pill_blue, true, this),
                 NavMenuItem.create(104,getResources().getString(R.string.navdrawer_item_deleted),R.drawable.pill_grey, true, this),

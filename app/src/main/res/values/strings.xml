@@ -63,6 +63,10 @@
     <string name="reminderArchived">Reminder Archived</string>
     <string name="reminderDeleted">Reminder Deleted</string>
     <string name="reminderRemoved">Reminder Removed</string>
+    <string name="preferences_category_multimedia">Multimedia</string>
+    <string name="preference_check_sound_title">Sound</string>
+    <string name="preference_check_vibration_title">Vibration</string>
+    <string name="preference_ringtone_title">Alarm tone</string>
     <plurals name="hours">
         <item quantity="one">Every: 1 Hour</item>
         <item quantity="other">Every: %d  Hours</item>

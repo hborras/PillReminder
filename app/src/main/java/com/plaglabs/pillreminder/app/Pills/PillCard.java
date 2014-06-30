@@ -10,9 +10,6 @@ import com.plaglabs.pillreminder.app.R;
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardThumbnail;
 
-/**
- * Created by plagueis on 10/05/14.
- */
 public class PillCard extends Card {
     protected TextView mTitle;
     protected TextView mSecondaryTitle;

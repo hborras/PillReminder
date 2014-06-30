@@ -4,7 +4,7 @@ import android.util.Log;
 
 public class Pill {
 
-    private static final String LOG =                               "PillModel";
+    private static final String LOG = "PillModel";
 
     private int mId;
     private String mName;
@@ -17,7 +17,6 @@ public class Pill {
     public Pill( String mName, int mImage) {
         this.mName = mName;
         this.mImage = mImage;
-
     }
 
     public int getmId() {
